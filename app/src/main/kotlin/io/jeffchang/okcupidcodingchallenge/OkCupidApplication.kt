@@ -1,7 +1,9 @@
 package io.jeffchang.okcupidcodingchallenge
 
+import com.crashlytics.android.Crashlytics
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
+import io.fabric.sdk.android.Fabric
 import io.jeffchang.okcupidcodingchallenge.dagger.components.DaggerAppComponent
 import timber.log.Timber
 
@@ -24,7 +26,9 @@ class OkCupidDemoApplication: DaggerApplication() {
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         } else {
-//            Fabric.with(this, Crashlytics())
+
+            // Crash handling within the production application.
+            Fabric.with(this, Crashlytics())
         }
     }
 }
