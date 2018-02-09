@@ -30,10 +30,7 @@ class SpecialBlendFragment: MatchListFragment(), SpecialBlendView {
     override fun onGetMatchesSuccess(matches: List<Match>) {
         (activity as MainActivity).disableViewPager(false)
         loadMainContent()
-        recyclerView.layoutManager = GridLayoutManager(context, NUMBER_OF_COLUMNS)
-        recyclerView.adapter =
-                MatchRecyclerViewAdapter(context!!, matches)
-        recyclerView.addItemDecoration(MatchSpaceDecoration(context!!,8))
+        recyclerView.adapter = MatchRecyclerViewAdapter(context!!, matches)
     }
 
     override fun onGetMatchesFailure(throwable: Throwable) {

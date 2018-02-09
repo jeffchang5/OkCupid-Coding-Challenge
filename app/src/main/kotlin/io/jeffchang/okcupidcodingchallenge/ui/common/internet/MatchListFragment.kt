@@ -1,6 +1,8 @@
 package io.jeffchang.okcupidcodingchallenge.ui.common.internet
 
 import android.os.Bundle
+import android.os.Parcelable
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +10,8 @@ import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams
 import android.widget.FrameLayout
 import dagger.android.support.DaggerFragment
+import io.jeffchang.okcupidcodingchallenge.ui.common.match.MatchSpaceDecoration
+import io.jeffchang.okcupidcodingchallenge.ui.specialblend.view.SpecialBlendFragment
 import io.jeffchang.okcupidcodingchallenge.util.ResourceUtil
 
 /**
@@ -15,6 +19,8 @@ import io.jeffchang.okcupidcodingchallenge.util.ResourceUtil
  * actions when retrieving data from the network.
  */
 abstract class MatchListFragment : DaggerFragment() {
+
+    private var layoutManagerState: Parcelable? = null
 
     private val parent: FrameLayout by lazy {
         FrameLayout(context)
@@ -31,9 +37,38 @@ abstract class MatchListFragment : DaggerFragment() {
                 LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
         recyclerView.layoutParams =
                 LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
+        recyclerView.layoutManager = GridLayoutManager(context, SpecialBlendFragment.NUMBER_OF_COLUMNS)
+        recyclerView.addItemDecoration(MatchSpaceDecoration(context!!,8))
         parent.addView(recyclerView)
         return parent
     }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        recyclerView.layoutManager?.let {
+            outState.putParcelable(ARG_RECYCLER_VIEW_STATE, it.onSaveInstanceState())
+        }
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        savedInstanceState?.let {
+            layoutManagerState = it.getParcelable(ARG_RECYCLER_VIEW_STATE)
+        }
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        recyclerView.layoutManager?.onRestoreInstanceState(layoutManagerState)
+    }
+
+//    override fun onSaveInstanceState(outState: Bundle) {
+//        super.onSaveInstanceState(outState)
+//        recyclerView.layoutManager?.let {
+//            outState.putParcelable(ARG_RECYCLER_VIEW_STATE, it.onSaveInstanceState())
+//        }
+//    }
 
     /**
      * Loads a screen when there is no internet.
@@ -90,5 +125,9 @@ abstract class MatchListFragment : DaggerFragment() {
     fun loadMainContent() {
         parent.removeAllViews()
         parent.addView(recyclerView)
+    }
+
+    companion object {
+        private const val ARG_RECYCLER_VIEW_STATE = "ARG_RECYCLER_VIEW_STATE"
     }
 }
