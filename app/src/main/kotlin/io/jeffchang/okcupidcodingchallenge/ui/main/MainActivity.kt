@@ -42,7 +42,6 @@ class MainActivity : DaggerAppCompatActivity() {
         }
 
         override fun getItem(position: Int): Fragment {
-            Timber.e(position.toString())
             return when (position) {
                 0 -> SpecialBlendFragment.newInstance()
                 1 -> MatchFragment.newInstance()
