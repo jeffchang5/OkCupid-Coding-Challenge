@@ -10,9 +10,7 @@ import io.jeffchang.okcupidcodingchallenge.ui.common.match.MatchRecyclerViewAdap
 import io.jeffchang.okcupidcodingchallenge.ui.common.match.MatchSpaceDecoration
 import io.jeffchang.okcupidcodingchallenge.ui.main.MainActivity
 import io.jeffchang.okcupidcodingchallenge.ui.specialblend.presenter.SpecialBlendPresenter
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_special_blend.*
-import timber.log.Timber
 import java.net.UnknownHostException
 import javax.inject.Inject
 
@@ -22,7 +20,6 @@ import javax.inject.Inject
  */
 
 class SpecialBlendFragment: InternetFragment(), SpecialBlendView {
-
 
     override var layoutResourceID: Int = R.layout.fragment_special_blend
 
@@ -34,12 +31,12 @@ class SpecialBlendFragment: InternetFragment(), SpecialBlendView {
         specialBlendPresenter.onViewCreated()
     }
 
-    override fun onGetMatchesSuccess(matchResponse: List<Match?>?) {
+    override fun onGetMatchesSuccess(matches: List<Match>) {
         (activity as MainActivity).disableViewPager(false)
         loadMainContent()
-        special_blend_recycler_view.layoutManager = GridLayoutManager(context, 2)
+        special_blend_recycler_view.layoutManager = GridLayoutManager(context, NUMBER_OF_COLUMNS)
         special_blend_recycler_view.adapter =
-                MatchRecyclerViewAdapter(context!!, null)
+                MatchRecyclerViewAdapter(context!!, matches)
         special_blend_recycler_view
                 .addItemDecoration(MatchSpaceDecoration(context!!,8))
     }
@@ -50,10 +47,14 @@ class SpecialBlendFragment: InternetFragment(), SpecialBlendView {
             is UnknownHostException -> loadNoInternet({
                 specialBlendPresenter.onViewCreated()
             }, null)
+//            else ->
         }
     }
 
     companion object {
+
+        const val NUMBER_OF_COLUMNS = 2
+
         fun newInstance(): SpecialBlendFragment {
             val fragment = SpecialBlendFragment()
             return fragment

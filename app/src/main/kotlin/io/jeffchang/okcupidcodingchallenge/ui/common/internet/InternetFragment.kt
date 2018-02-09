@@ -61,6 +61,19 @@ abstract class InternetFragment : DaggerFragment() {
         parent.addView(noInternetView)
     }
 
+    fun loadUnknownReason(callback: (() -> Unit)?, height: Int?) {
+        parent.removeAllViews()
+        val unknownReasonView = UnknownReasonView(context!!)
+        if (height != null)
+            unknownReasonView.layoutParams = LayoutParams(LayoutParams.MATCH_PARENT,
+                    ResourceUtil.convertDpToPixel(context!!, height))
+        unknownReasonView.tryAgainCallback = {
+            loadCircularProgressBar("Trying again...")
+            callback?.invoke()
+        }
+        parent.addView(unknownReasonView)
+    }
+
     /**
      * Loads a view with a progress bar
      *

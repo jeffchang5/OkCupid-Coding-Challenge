@@ -9,12 +9,12 @@ import io.jeffchang.okcupidcodingchallenge.R
 import kotlinx.android.synthetic.main.view_no_internet.view.*
 
 /**
- * View that displays a screen when the user has lost connectivity.
+ * View that displays a screen when the user encounters an unknown network error.
  *
  * @property[tryAgainCallback] A callback to load to reattempt the network call.
  */
 
-class NoInternetView: RelativeLayout {
+class UnknownReasonView : RelativeLayout {
 
     var tryAgainCallback: (() -> Unit)? = null
         set(callback) {
@@ -36,7 +36,7 @@ class NoInternetView: RelativeLayout {
     }
 
     private fun init(context: Context) {
-        inflate(context, R.layout.view_no_internet, this)
+        inflate(context, R.layout.view_unknown_reason, this)
         val tryAgainSpan = SpannableString(unknown_reason_error_description_textview.text)
         tryAgainSpan.setSpan(UnderlineSpan(), 0 , tryAgainSpan.length, 0)
         unknown_reason_error_description_textview.text = tryAgainSpan
