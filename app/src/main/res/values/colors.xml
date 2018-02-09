@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">@color/muteBlueGray</color>
-    <color name="colorPrimaryDark">@color/muteBlueGrayDark</color>
-    <color name="colorAccent">@color/white</color>
-
-    <!-- Common colors used throughout the app -->
-    <color name="white">#FFF</color>
-    <color name="highlightYellow">#ffffa8</color>
-    <color name="muteBlueGray">#4c7bd9</color>
-    <color name="muteBlueGrayDark">#3260c7</color>
-    <color name="muteBlueGrayLight">#a7beec</color>
-    <color name="muteCardBackground">#e9ebf0</color>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
 </resources>
