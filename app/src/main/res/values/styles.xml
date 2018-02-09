@@ -16,6 +16,6 @@
 
     <style name="OkCupidTabTextAppearance" parent="TextAppearance.Design.Tab">
         <item name="android:textColor">@color/muteBlueGrayLight</item>
+        <item name="android:textSize">@dimen/tab_text_size</item>
     </style>
-
 </resources>

@@ -16,7 +16,6 @@ class MatchFragment : InternetFragment(), MatchView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Timber.e("Match Fragment")
     }
 
     companion object {

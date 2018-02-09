@@ -2,10 +2,18 @@
     <string name="app_name">OKCupidCodingChallenge</string>
     <string name="search_title">Search</string>
 
-    <string name="special_blend">Special Blend</string>
+    <!--Common-->
     <string name="match_percent">Match %</string>
+
+    <!--Special Blend-->
+    <string name="special_blend">Special Blend</string>
+
+    <!--No internet view-->
     <string name="disconnected">Disconnected</string>
     <string name="device_offline">Device Offline</string>
     <string name="try_again">Try Again</string>
+
+    <!--Match Card-->
+    <string name="match_card_profile_image_description">match_card_profile_image_description</string>
 
 </resources>

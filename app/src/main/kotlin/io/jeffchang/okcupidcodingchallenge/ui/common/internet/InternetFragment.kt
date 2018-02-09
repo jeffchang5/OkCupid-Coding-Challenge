@@ -13,7 +13,6 @@ import io.jeffchang.okcupidcodingchallenge.util.ResourceUtil
  * This class is meant to be extended in providing logic for common
  * actions when retrieving data from the network.
  */
-
 abstract class InternetFragment : DaggerFragment() {
 
     private lateinit var parent: FrameLayout
