@@ -2,7 +2,7 @@ package io.jeffchang.okcupidcodingchallenge.dagger.components
 
 import dagger.Subcomponent
 import dagger.android.AndroidInjector
-import io.jeffchang.okcupidcodingchallenge.ui.main.MainActivity
+import io.jeffchang.okcupidcodingchallenge.MainActivity
 
 /**
  * Component that injects dependencies into [MainActivity] such as
