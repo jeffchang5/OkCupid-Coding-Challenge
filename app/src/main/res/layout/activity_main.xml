@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.view.ViewPager
+<io.jeffchang.okcupidcodingchallenge.ui.common.match.NoScrollableViewPager
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/activity_main_viewpager"
     android:layout_width="match_parent"
@@ -14,4 +14,4 @@
         android:layout_gravity="top"
         android:elevation="6dp" />
 
-</android.support.v4.view.ViewPager>
+</io.jeffchang.okcupidcodingchallenge.ui.common.match.NoScrollableViewPager>

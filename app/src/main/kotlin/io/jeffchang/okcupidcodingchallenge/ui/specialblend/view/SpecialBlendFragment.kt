@@ -8,9 +8,12 @@ import io.jeffchang.okcupidcodingchallenge.ui.common.internet.InternetFragment
 import io.jeffchang.okcupidcodingchallenge.data.model.Match
 import io.jeffchang.okcupidcodingchallenge.ui.common.match.MatchRecyclerViewAdapter
 import io.jeffchang.okcupidcodingchallenge.ui.common.match.MatchSpaceDecoration
+import io.jeffchang.okcupidcodingchallenge.ui.main.MainActivity
 import io.jeffchang.okcupidcodingchallenge.ui.specialblend.presenter.SpecialBlendPresenter
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_special_blend.*
 import timber.log.Timber
+import java.net.UnknownHostException
 import javax.inject.Inject
 
 
@@ -27,10 +30,13 @@ class SpecialBlendFragment: InternetFragment(), SpecialBlendView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        loadCircularProgressBar("Loading Your Matches")
         specialBlendPresenter.onViewCreated()
     }
 
     override fun onGetMatchesSuccess(matchResponse: List<Match?>?) {
+        (activity as MainActivity).disableViewPager(false)
+        loadMainContent()
         special_blend_recycler_view.layoutManager = GridLayoutManager(context, 2)
         special_blend_recycler_view.adapter =
                 MatchRecyclerViewAdapter(context!!, null)
@@ -39,7 +45,12 @@ class SpecialBlendFragment: InternetFragment(), SpecialBlendView {
     }
 
     override fun onGetMatchesFailure(throwable: Throwable) {
-        Timber.d(throwable.toString())
+        (activity as MainActivity).disableViewPager(true)
+        when (throwable) {
+            is UnknownHostException -> loadNoInternet({
+                specialBlendPresenter.onViewCreated()
+            }, null)
+        }
     }
 
     companion object {
