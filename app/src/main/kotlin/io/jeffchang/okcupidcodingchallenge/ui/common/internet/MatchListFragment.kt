@@ -1,6 +1,7 @@
 package io.jeffchang.okcupidcodingchallenge.ui.common.internet
 
 import android.os.Bundle
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,27 +14,24 @@ import io.jeffchang.okcupidcodingchallenge.util.ResourceUtil
  * This class is meant to be extended in providing logic for common
  * actions when retrieving data from the network.
  */
-abstract class InternetFragment : DaggerFragment() {
+abstract class MatchListFragment : DaggerFragment() {
 
-    private lateinit var parent: FrameLayout
+    private val parent: FrameLayout by lazy {
+        FrameLayout(context)
+    }
 
-    private var childView: View? = null
-
-    abstract var layoutResourceID: Int
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        retainInstance = true
+    open val recyclerView: RecyclerView by lazy {
+        RecyclerView(context)
     }
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        parent = FrameLayout(context)
         parent.layoutParams = LayoutParams(
                 LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
-        childView = inflater.inflate(layoutResourceID, container, false)
-        parent.addView(childView)
+        recyclerView.layoutParams =
+                LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
+        parent.addView(recyclerView)
         return parent
     }
 
@@ -91,6 +89,6 @@ abstract class InternetFragment : DaggerFragment() {
      */
     fun loadMainContent() {
         parent.removeAllViews()
-        parent.addView(childView)
+        parent.addView(recyclerView)
     }
 }

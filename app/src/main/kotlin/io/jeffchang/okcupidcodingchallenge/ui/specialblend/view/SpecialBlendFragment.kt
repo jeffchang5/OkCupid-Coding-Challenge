@@ -3,14 +3,12 @@ package io.jeffchang.okcupidcodingchallenge.ui.specialblend.view
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.view.View
-import io.jeffchang.okcupidcodingchallenge.R
-import io.jeffchang.okcupidcodingchallenge.ui.common.internet.InternetFragment
+import io.jeffchang.okcupidcodingchallenge.ui.common.internet.MatchListFragment
 import io.jeffchang.okcupidcodingchallenge.data.model.Match
 import io.jeffchang.okcupidcodingchallenge.ui.common.match.MatchRecyclerViewAdapter
 import io.jeffchang.okcupidcodingchallenge.ui.common.match.MatchSpaceDecoration
 import io.jeffchang.okcupidcodingchallenge.ui.main.MainActivity
 import io.jeffchang.okcupidcodingchallenge.ui.specialblend.presenter.SpecialBlendPresenter
-import kotlinx.android.synthetic.main.fragment_special_blend.*
 import java.net.UnknownHostException
 import javax.inject.Inject
 
@@ -19,9 +17,7 @@ import javax.inject.Inject
  * Created by jeffreychang on 2/8/18.
  */
 
-class SpecialBlendFragment: InternetFragment(), SpecialBlendView {
-
-    override var layoutResourceID: Int = R.layout.fragment_special_blend
+class SpecialBlendFragment: MatchListFragment(), SpecialBlendView {
 
     @Inject lateinit var specialBlendPresenter: SpecialBlendPresenter
 
@@ -34,11 +30,10 @@ class SpecialBlendFragment: InternetFragment(), SpecialBlendView {
     override fun onGetMatchesSuccess(matches: List<Match>) {
         (activity as MainActivity).disableViewPager(false)
         loadMainContent()
-        special_blend_recycler_view.layoutManager = GridLayoutManager(context, NUMBER_OF_COLUMNS)
-        special_blend_recycler_view.adapter =
+        recyclerView.layoutManager = GridLayoutManager(context, NUMBER_OF_COLUMNS)
+        recyclerView.adapter =
                 MatchRecyclerViewAdapter(context!!, matches)
-        special_blend_recycler_view
-                .addItemDecoration(MatchSpaceDecoration(context!!,8))
+        recyclerView.addItemDecoration(MatchSpaceDecoration(context!!,8))
     }
 
     override fun onGetMatchesFailure(throwable: Throwable) {
@@ -47,7 +42,9 @@ class SpecialBlendFragment: InternetFragment(), SpecialBlendView {
             is UnknownHostException -> loadNoInternet({
                 specialBlendPresenter.onViewCreated()
             }, null)
-//            else ->
+            else -> loadUnknownReason({
+                specialBlendPresenter.onViewCreated()
+            }, null)
         }
     }
 
