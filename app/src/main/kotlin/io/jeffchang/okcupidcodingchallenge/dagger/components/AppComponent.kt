@@ -9,6 +9,7 @@ import dagger.android.support.DaggerApplication
 import io.jeffchang.okcupidcodingchallenge.OkCupidDemoApplication
 import io.jeffchang.okcupidcodingchallenge.dagger.modules.ActivityBuilder
 import io.jeffchang.okcupidcodingchallenge.dagger.modules.AppModule
+import io.jeffchang.okcupidcodingchallenge.dagger.modules.NetworkModule
 import javax.inject.Singleton
 
 /**
@@ -20,7 +21,8 @@ import javax.inject.Singleton
 @Component(modules = [
     AndroidSupportInjectionModule::class,
     AppModule::class,
-    ActivityBuilder::class
+    ActivityBuilder::class,
+    NetworkModule::class
 ])
 interface AppComponent: AndroidInjector<DaggerApplication> {
 
@@ -33,6 +35,8 @@ interface AppComponent: AndroidInjector<DaggerApplication> {
 
         @BindsInstance
         fun application(application: Application): Builder
+
+        fun networkModule(networkModule: NetworkModule): Builder
 
         fun build(): AppComponent
     }
