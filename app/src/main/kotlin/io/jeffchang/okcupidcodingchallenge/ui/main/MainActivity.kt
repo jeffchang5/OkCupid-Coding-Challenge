@@ -10,12 +10,15 @@ import io.jeffchang.okcupidcodingchallenge.ui.specialblend.view.SpecialBlendFrag
 import kotlinx.android.synthetic.main.activity_main.*
 import android.widget.LinearLayout
 import io.jeffchang.okcupidcodingchallenge.data.model.Match
-import io.jeffchang.okcupidcodingchallenge.ui.match.MatchFragment
+import io.jeffchang.okcupidcodingchallenge.ui.match.view.MatchFragment
 
 class MainActivity : DaggerAppCompatActivity(),
         MatchFragment.OnCardClickedListener,
         SpecialBlendFragment.OnCardClickedListener {
 
+    val matchFragmentPagerAdapter by lazy {
+        MatchFragmentPagerAdapter(supportFragmentManager)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -33,12 +36,11 @@ class MainActivity : DaggerAppCompatActivity(),
                 activity_main_tab_layout.newTab()
                 .setText(resources.getString(R.string.match_percent)))
         activity_main_tab_layout.setupWithViewPager(activity_main_viewpager)
-        activity_main_viewpager.adapter = MatchFragmentPagerAdapter(supportFragmentManager)
+        activity_main_viewpager.adapter = matchFragmentPagerAdapter
     }
 
     fun disableViewPager(disable: Boolean) {
         activity_main_viewpager.isDisabled = disable
-
         val tabStrip = activity_main_tab_layout.getChildAt(0) as LinearLayout
         tabStrip.isEnabled = !disable
         for (i in 0 until tabStrip.childCount) {
@@ -47,6 +49,7 @@ class MainActivity : DaggerAppCompatActivity(),
     }
 
     override fun onFromSpecialBlendFragmentAddLike(match: Match) {
+        matchFragmentPagerAdapter.matchFragment.addMatchToAdapter(match)
     }
 
     override fun onFromSpecialBlendFragmentRemoveLike(match: Match) {

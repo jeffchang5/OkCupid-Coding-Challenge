@@ -1,6 +1,7 @@
 package io.jeffchang.okcupidcodingchallenge.ui.common.match
 
 import android.content.Context
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.CardView
 import android.view.View
 import com.squareup.picasso.Picasso
@@ -16,6 +17,15 @@ class MatchCardView(context: Context): CardView(context) {
 
     var onCardClickedListener: OnCardClickedListener? = null
 
+    private var likedField: Boolean = false
+
+    var isLiked: Boolean
+        get() = likedField
+        set(value) {
+            likedField = value
+            toggleMatchCard(value)
+        }
+
     init {
         View.inflate(context, R.layout.view_match_card, this)
     }
@@ -30,8 +40,9 @@ class MatchCardView(context: Context): CardView(context) {
                 match.age,
                 match.location?.cityName,
                 match.location?.stateCode!!)
-        match_card_match_percentage_textview.text = formatServerPercent(match.match!!)
+        match_card_match_percentage_textview.text = formatServerPercent(match.match)
         rootView.setOnClickListener({
+            isLiked = !likedField
             onCardClickedListener?.onCardClicked(match)
         })
     }
@@ -41,6 +52,14 @@ class MatchCardView(context: Context): CardView(context) {
                 Math.round(percent * .01))
     }
 
+    private fun toggleMatchCard(isLiked: Boolean) {
+        if (isLiked) {
+            match_card_text_portion_layout.background =
+                    ContextCompat.getDrawable(context, R.color.highlightYellow)
+        } else {
+            match_card_text_portion_layout.background = ContextCompat.getDrawable(context, R.color.white)
+        }
+    }
     interface OnCardClickedListener {
 
         fun onCardClicked(match: Match)

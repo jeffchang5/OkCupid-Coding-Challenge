@@ -19,7 +19,7 @@ data class Match(
         @Json(name = "gender") var gender: Int?,
         @Embedded
         @Json(name = "location") var location: Location?,
-        @Json(name = "match") var match: Int?,
+        @Json(name = "match") var match: Int,
         @Json(name = "liked") var liked: Boolean?,
         @Json(name = "orientation") var orientation: Int?,
         @Embedded
@@ -29,4 +29,12 @@ data class Match(
         @Json(name = "is_online") var isOnline: Int?,
         @Json(name = "username") var username: String?,
         @Json(name = "stoplight_color") var stoplightColor: String?
-)
+): Comparable<Match> {
+
+    override fun compareTo(other: Match): Int = when {
+        this.match > other.match -> -1
+        this.match < other.match -> 1
+        else -> 0
+    }
+
+}

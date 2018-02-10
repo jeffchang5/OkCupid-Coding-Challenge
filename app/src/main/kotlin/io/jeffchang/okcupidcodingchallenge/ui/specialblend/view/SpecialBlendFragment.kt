@@ -45,7 +45,8 @@ class SpecialBlendFragment
     override fun onGetMatchesSuccess(matches: List<Match>) {
         (activity as MainActivity).disableViewPager(false)
         loadMainContent()
-        recyclerView.adapter = MatchRecyclerViewAdapter(context!!, matches, this)
+        recyclerView.adapter = MatchRecyclerViewAdapter(context!!, matches,
+                true, this)
     }
 
     override fun onGetMatchesFailure(throwable: Throwable) {

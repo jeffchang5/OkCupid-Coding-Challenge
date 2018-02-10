@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import io.jeffchang.okcupidcodingchallenge.data.model.Match
+import java.util.TreeSet
 
 /**
  * Created by jeffreychang on 2/9/18.
@@ -12,8 +13,15 @@ import io.jeffchang.okcupidcodingchallenge.data.model.Match
 
 class MatchRecyclerViewAdapter (private val context: Context,
                                 private val matches: List<Match>,
-                                private val onCardClickedListener: MatchCardView.OnCardClickedListener)
+                                private val keepLikeState: Boolean,
+                                private val onCardClickedListener: MatchCardView.OnCardClickedListener?)
     : RecyclerView.Adapter<MatchRecyclerViewAdapter.MatchViewHolder>() {
+
+    private var isMatchLiked: TreeSet<Int>? = null
+
+    init {
+        if (keepLikeState) isMatchLiked = TreeSet()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MatchViewHolder =
         MatchViewHolder(MatchCardView(context))

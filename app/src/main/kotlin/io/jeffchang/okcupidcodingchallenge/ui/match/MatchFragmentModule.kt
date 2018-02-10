@@ -6,6 +6,7 @@ import dagger.Provides
 import io.jeffchang.okcupidcodingchallenge.ui.match.interactor.MatchInteractor
 import io.jeffchang.okcupidcodingchallenge.ui.match.interactor.MatchInteractorImpl
 import io.jeffchang.okcupidcodingchallenge.ui.match.presenter.MatchPresenterImpl
+import io.jeffchang.okcupidcodingchallenge.ui.match.view.MatchFragment
 import io.jeffchang.okcupidcodingchallenge.ui.match.view.MatchView
 import io.jeffchang.okcupidcodingchallenge.ui.specialblend.presenter.MatchPresenter
 

@@ -1,12 +1,13 @@
-package io.jeffchang.okcupidcodingchallenge.ui.match
+package io.jeffchang.okcupidcodingchallenge.ui.match.view
 
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import io.jeffchang.okcupidcodingchallenge.data.model.Match
 import io.jeffchang.okcupidcodingchallenge.ui.common.internet.MatchListFragment
-import io.jeffchang.okcupidcodingchallenge.ui.match.view.MatchView
+import io.jeffchang.okcupidcodingchallenge.ui.common.match.MatchRecyclerViewAdapter
 import io.jeffchang.okcupidcodingchallenge.ui.specialblend.presenter.MatchPresenter
-import timber.log.Timber
+import java.util.TreeSet
 import javax.inject.Inject
 
 /**
@@ -15,10 +16,19 @@ import javax.inject.Inject
 
 class MatchFragment : MatchListFragment(), MatchView {
 
+    @Inject lateinit var matchPresenter: MatchPresenter
+
     private var onCardClickedListener: OnCardClickedListener? = null
 
-    @Inject
-    lateinit var matchPresenter: MatchPresenter
+    private var matchSet = TreeSet<Match>()
+
+    private val matchList by lazy {
+        ArrayList<Match>()
+    }
+
+    private val matchReyclerViewAdapter by lazy {
+        MatchRecyclerViewAdapter(context!!, matchList, false, null)
+    }
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
@@ -31,15 +41,22 @@ class MatchFragment : MatchListFragment(), MatchView {
         matchPresenter.onViewCreated()
     }
 
+    override fun showMatchList() {
+        recyclerView.adapter = matchReyclerViewAdapter
+    }
+
+    fun addMatchToAdapter(match: Match) {
+        matchSet.add(match)
+        matchList.clear()
+        matchList.addAll(matchSet)
+        matchReyclerViewAdapter.notifyDataSetChanged()
+    }
+
     companion object {
         fun newInstance(): MatchFragment {
             val fragment = MatchFragment()
             return fragment
         }
-    }
-    
-    override fun showMatchList() {
-        Timber.e("asdfs")
     }
 
     interface OnCardClickedListener {
