@@ -7,6 +7,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
+    buildToolsVersion "27.0.3"
     compileSdkVersion 27
     defaultConfig {
         applicationId "io.jeffchang.okcupidcodingchallenge"
