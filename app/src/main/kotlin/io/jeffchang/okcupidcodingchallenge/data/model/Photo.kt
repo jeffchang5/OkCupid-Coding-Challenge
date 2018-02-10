@@ -8,7 +8,6 @@ import com.squareup.moshi.Json
  * and the various ways that is stored for different devices.
  */
 
-
 data class Photo(
         @Json(name = "base_path") var basePath: String?,
         @Json(name = "ordinal") var ordinal: Int?,

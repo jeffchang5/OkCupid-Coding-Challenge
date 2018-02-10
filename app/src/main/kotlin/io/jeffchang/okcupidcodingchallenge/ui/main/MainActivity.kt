@@ -30,7 +30,7 @@ class MainActivity : DaggerAppCompatActivity() {
                 activity_main_tab_layout.newTab()
                 .setText(resources.getString(R.string.match_percent)))
         activity_main_tab_layout.setupWithViewPager(activity_main_viewpager)
-        activity_main_viewpager.adapter = SpecialBlendFragmentPagerAdapter(supportFragmentManager)
+        activity_main_viewpager.adapter = MatchFragmentPagerAdapter(supportFragmentManager)
     }
 
     fun disableViewPager(disable: Boolean) {
@@ -42,7 +42,7 @@ class MainActivity : DaggerAppCompatActivity() {
             tabStrip.getChildAt(i).isClickable = !disable
         }
     }
-    class SpecialBlendFragmentPagerAdapter(fragmentManager: FragmentManager)
+    class MatchFragmentPagerAdapter(fragmentManager: FragmentManager)
         : FragmentPagerAdapter(fragmentManager) {
 
         enum class FragmentState(val title: String) {

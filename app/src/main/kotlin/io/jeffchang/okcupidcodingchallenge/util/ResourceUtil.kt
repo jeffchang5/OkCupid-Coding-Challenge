@@ -13,6 +13,7 @@ object ResourceUtil {
     fun convertDpResToPixel(context: Context, @DimenRes res: Int): Int {
         return context.resources.getDimensionPixelSize(res)
     }
+
     fun convertDpToPixel(context: Context, dim: Int): Int {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                 (dim.toFloat()),
