@@ -3,7 +3,7 @@ package io.jeffchang.okcupidcodingchallenge.dagger.modules
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import io.jeffchang.okcupidcodingchallenge.ui.main.MainActivity
-import io.jeffchang.okcupidcodingchallenge.ui.specialblend.MatchFragmentProvider
+import io.jeffchang.okcupidcodingchallenge.ui.match.MatchFragmentProvider
 import io.jeffchang.okcupidcodingchallenge.ui.specialblend.SpecialBlendFragmentProvider
 
 /**

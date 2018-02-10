@@ -14,6 +14,8 @@ import kotlinx.android.synthetic.main.view_match_card.view.*
 
 class MatchCardView(context: Context): CardView(context) {
 
+    var onCardClickedListener: OnCardClickedListener? = null
+
     init {
         View.inflate(context, R.layout.view_match_card, this)
     }
@@ -29,10 +31,18 @@ class MatchCardView(context: Context): CardView(context) {
                 match.location?.cityName,
                 match.location?.stateCode!!)
         match_card_match_percentage_textview.text = formatServerPercent(match.match!!)
+        rootView.setOnClickListener({
+            onCardClickedListener?.onCardClicked(match)
+        })
     }
 
     private fun formatServerPercent(percent: Int): String {
         return String.format(resources.getString(R.string.match_percent),
                 Math.round(percent * .01))
+    }
+
+    interface OnCardClickedListener {
+
+        fun onCardClicked(match: Match)
     }
 }

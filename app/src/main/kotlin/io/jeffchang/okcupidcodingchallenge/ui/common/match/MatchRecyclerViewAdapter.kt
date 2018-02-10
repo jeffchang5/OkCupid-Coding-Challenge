@@ -11,7 +11,8 @@ import io.jeffchang.okcupidcodingchallenge.data.model.Match
  */
 
 class MatchRecyclerViewAdapter (private val context: Context,
-                                private val matches: List<Match>)
+                                private val matches: List<Match>,
+                                private val onCardClickedListener: MatchCardView.OnCardClickedListener)
     : RecyclerView.Adapter<MatchRecyclerViewAdapter.MatchViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MatchViewHolder =
@@ -21,6 +22,7 @@ class MatchRecyclerViewAdapter (private val context: Context,
 
     override fun onBindViewHolder(holder: MatchViewHolder?, position: Int) {
         val matchViewHolder = (holder?.itemView as MatchCardView)
+        matchViewHolder.onCardClickedListener = onCardClickedListener
         matchViewHolder.updateUI(matches[position])
     }
 

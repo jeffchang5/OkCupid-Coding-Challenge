@@ -55,7 +55,6 @@ abstract class MatchListFragment : DaggerFragment() {
         savedInstanceState?.let {
             layoutManagerState = it.getParcelable(ARG_RECYCLER_VIEW_STATE)
         }
-
     }
 
     override fun onResume() {

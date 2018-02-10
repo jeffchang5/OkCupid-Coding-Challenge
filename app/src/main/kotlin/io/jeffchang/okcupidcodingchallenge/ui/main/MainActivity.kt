@@ -6,12 +6,15 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import dagger.android.support.DaggerAppCompatActivity
 import io.jeffchang.okcupidcodingchallenge.R
-import io.jeffchang.okcupidcodingchallenge.ui.specialblend.view.MatchFragment
 import io.jeffchang.okcupidcodingchallenge.ui.specialblend.view.SpecialBlendFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import android.widget.LinearLayout
+import io.jeffchang.okcupidcodingchallenge.data.model.Match
+import io.jeffchang.okcupidcodingchallenge.ui.match.MatchFragment
 
-class MainActivity : DaggerAppCompatActivity() {
+class MainActivity : DaggerAppCompatActivity(),
+        MatchFragment.OnCardClickedListener,
+        SpecialBlendFragment.OnCardClickedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,8 +45,28 @@ class MainActivity : DaggerAppCompatActivity() {
             tabStrip.getChildAt(i).isClickable = !disable
         }
     }
+
+    override fun onFromSpecialBlendFragmentAddLike(match: Match) {
+    }
+
+    override fun onFromSpecialBlendFragmentRemoveLike(match: Match) {
+
+    }
+
+    override fun onFromMatchFragmentRemoveLike() {
+
+    }
+
     class MatchFragmentPagerAdapter(fragmentManager: FragmentManager)
         : FragmentPagerAdapter(fragmentManager) {
+
+        val specialBlendFragment by lazy {
+            SpecialBlendFragment.newInstance()
+        }
+
+        val matchFragment by lazy {
+            MatchFragment.newInstance()
+        }
 
         enum class FragmentState(val title: String) {
             SPECIAL_BLEND("Special Blend"),
@@ -52,8 +75,8 @@ class MainActivity : DaggerAppCompatActivity() {
 
         override fun getItem(position: Int): Fragment {
             return when (position) {
-                0 -> SpecialBlendFragment.newInstance()
-                1 -> MatchFragment.newInstance()
+                0 -> specialBlendFragment
+                1 -> matchFragment
                 else -> Fragment()
             }
         }
@@ -62,6 +85,5 @@ class MainActivity : DaggerAppCompatActivity() {
                 = FragmentState.values()[position].title
 
         override fun getCount(): Int = FragmentState.values().size
-
     }
 }
