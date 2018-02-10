@@ -62,14 +62,7 @@ abstract class MatchListFragment : DaggerFragment() {
         super.onResume()
         recyclerView.layoutManager?.onRestoreInstanceState(layoutManagerState)
     }
-
-//    override fun onSaveInstanceState(outState: Bundle) {
-//        super.onSaveInstanceState(outState)
-//        recyclerView.layoutManager?.let {
-//            outState.putParcelable(ARG_RECYCLER_VIEW_STATE, it.onSaveInstanceState())
-//        }
-//    }
-
+    
     /**
      * Loads a screen when there is no internet.
      *
