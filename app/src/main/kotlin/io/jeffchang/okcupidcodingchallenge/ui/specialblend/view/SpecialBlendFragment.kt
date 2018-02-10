@@ -38,11 +38,11 @@ class SpecialBlendFragment
             onCardClickedListener = context
     }
 
-    override fun onCardClicked(match: Match) {
-        onCardClickedListener?.onFromSpecialBlendFragmentAddLike(match)
+    override fun onCardClicked(match: Match, isLiked: Boolean) {
+        onCardClickedListener?.onFromSpecialBlendFragmentAddLike(match, isLiked)
     }
 
-    override fun onGetMatchesSuccess(matches: List<Match>) {
+    override fun onGetMatchesSuccess(matches: ArrayList<Match>) {
         (activity as MainActivity).disableViewPager(false)
         loadMainContent()
         recyclerView.adapter = MatchRecyclerViewAdapter(context!!, matches,
@@ -73,7 +73,7 @@ class SpecialBlendFragment
 
     interface OnCardClickedListener {
 
-        fun onFromSpecialBlendFragmentAddLike(match: Match)
+        fun onFromSpecialBlendFragmentAddLike(match: Match, isLiked: Boolean)
 
         fun onFromSpecialBlendFragmentRemoveLike(match: Match)
     }

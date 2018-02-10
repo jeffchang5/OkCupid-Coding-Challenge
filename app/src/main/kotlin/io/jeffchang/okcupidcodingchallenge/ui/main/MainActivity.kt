@@ -16,9 +16,10 @@ class MainActivity : DaggerAppCompatActivity(),
         MatchFragment.OnCardClickedListener,
         SpecialBlendFragment.OnCardClickedListener {
 
-    val matchFragmentPagerAdapter by lazy {
+    private val matchFragmentPagerAdapter by lazy {
         MatchFragmentPagerAdapter(supportFragmentManager)
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -48,8 +49,11 @@ class MainActivity : DaggerAppCompatActivity(),
         }
     }
 
-    override fun onFromSpecialBlendFragmentAddLike(match: Match) {
-        matchFragmentPagerAdapter.matchFragment.addMatchToAdapter(match)
+    override fun onFromSpecialBlendFragmentAddLike(match: Match, isLiked: Boolean) {
+        if (isLiked) {
+            matchFragmentPagerAdapter.matchFragment.addMatchToAdapter(match)
+        }
+        else matchFragmentPagerAdapter.matchFragment.removeMatchToAdapter(match)
     }
 
     override fun onFromSpecialBlendFragmentRemoveLike(match: Match) {

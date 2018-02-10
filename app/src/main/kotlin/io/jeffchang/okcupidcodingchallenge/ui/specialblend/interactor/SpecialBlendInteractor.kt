@@ -9,6 +9,6 @@ import io.reactivex.Maybe
 
 interface SpecialBlendInteractor {
 
-    fun getMatchesFromAPI(): Maybe<List<Match>>
+    fun getMatchesFromAPI(): Maybe<ArrayList<Match>>
 
 }

@@ -17,14 +17,7 @@ class MatchCardView(context: Context): CardView(context) {
 
     var onCardClickedListener: OnCardClickedListener? = null
 
-    private var likedField: Boolean = false
-
-    var isLiked: Boolean
-        get() = likedField
-        set(value) {
-            likedField = value
-            toggleMatchCard(value)
-        }
+    var keepLikeState: Boolean = false
 
     init {
         View.inflate(context, R.layout.view_match_card, this)
@@ -41,10 +34,14 @@ class MatchCardView(context: Context): CardView(context) {
                 match.location?.cityName,
                 match.location?.stateCode!!)
         match_card_match_percentage_textview.text = formatServerPercent(match.match)
-        rootView.setOnClickListener({
-            isLiked = !likedField
-            onCardClickedListener?.onCardClicked(match)
-        })
+        if (keepLikeState) {
+            addLikeBackground(match.liked)
+            rootView.setOnClickListener({
+                match.liked = !match.liked
+                addLikeBackground(match.liked)
+                onCardClickedListener?.onCardClicked(match, match.liked)
+            })
+        }
     }
 
     private fun formatServerPercent(percent: Int): String {
@@ -52,16 +49,17 @@ class MatchCardView(context: Context): CardView(context) {
                 Math.round(percent * .01))
     }
 
-    private fun toggleMatchCard(isLiked: Boolean) {
+    private fun addLikeBackground(isLiked: Boolean) {
         if (isLiked) {
             match_card_text_portion_layout.background =
                     ContextCompat.getDrawable(context, R.color.highlightYellow)
         } else {
-            match_card_text_portion_layout.background = ContextCompat.getDrawable(context, R.color.white)
+            match_card_text_portion_layout.background =
+                    ContextCompat.getDrawable(context, R.color.white)
         }
     }
     interface OnCardClickedListener {
 
-        fun onCardClicked(match: Match)
+        fun onCardClicked(match: Match, isLiked: Boolean)
     }
 }

@@ -8,7 +8,7 @@ import io.jeffchang.okcupidcodingchallenge.data.model.Match
 
 interface SpecialBlendView {
 
-    fun onGetMatchesSuccess(matches: List<Match>)
+    fun onGetMatchesSuccess(matches: ArrayList<Match>)
 
     fun onGetMatchesFailure(throwable: Throwable)
 

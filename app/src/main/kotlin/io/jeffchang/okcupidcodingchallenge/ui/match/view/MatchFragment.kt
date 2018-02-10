@@ -52,6 +52,13 @@ class MatchFragment : MatchListFragment(), MatchView {
         matchReyclerViewAdapter.notifyDataSetChanged()
     }
 
+    fun removeMatchToAdapter(match: Match) {
+        matchSet.remove(match)
+        matchList.clear()
+        matchList.addAll(matchSet)
+        matchReyclerViewAdapter.notifyDataSetChanged()
+    }
+
     companion object {
         fun newInstance(): MatchFragment {
             val fragment = MatchFragment()

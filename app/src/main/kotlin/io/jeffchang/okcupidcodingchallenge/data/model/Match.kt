@@ -20,7 +20,7 @@ data class Match(
         @Embedded
         @Json(name = "location") var location: Location?,
         @Json(name = "match") var match: Int,
-        @Json(name = "liked") var liked: Boolean?,
+        @Json(name = "liked") var liked: Boolean,
         @Json(name = "orientation") var orientation: Int?,
         @Embedded
         @Json(name = "photo") var photo: Photo?,
@@ -36,5 +36,4 @@ data class Match(
         this.match < other.match -> 1
         else -> 0
     }
-
 }

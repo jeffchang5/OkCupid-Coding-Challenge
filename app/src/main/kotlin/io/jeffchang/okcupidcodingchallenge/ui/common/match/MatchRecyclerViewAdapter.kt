@@ -12,7 +12,7 @@ import java.util.TreeSet
  */
 
 class MatchRecyclerViewAdapter (private val context: Context,
-                                private val matches: List<Match>,
+                                private val matches: ArrayList<Match>,
                                 private val keepLikeState: Boolean,
                                 private val onCardClickedListener: MatchCardView.OnCardClickedListener?)
     : RecyclerView.Adapter<MatchRecyclerViewAdapter.MatchViewHolder>() {
@@ -30,8 +30,10 @@ class MatchRecyclerViewAdapter (private val context: Context,
 
     override fun onBindViewHolder(holder: MatchViewHolder?, position: Int) {
         val matchViewHolder = (holder?.itemView as MatchCardView)
+        val match = matches[position]
         matchViewHolder.onCardClickedListener = onCardClickedListener
-        matchViewHolder.updateUI(matches[position])
+        matchViewHolder.keepLikeState = keepLikeState
+        matchViewHolder.updateUI(match)
     }
 
     class MatchViewHolder(view: View): RecyclerView.ViewHolder(view)
