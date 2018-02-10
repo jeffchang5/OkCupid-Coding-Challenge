@@ -8,5 +8,5 @@ import com.squareup.moshi.Json
 
 data class MatchResponse(
         @Json(name = "total_matches") var totalMatches: Int?,
-        @Json(name = "data") var data: List<Match?>?
+        @Json(name = "data") var data: List<Match>
 )

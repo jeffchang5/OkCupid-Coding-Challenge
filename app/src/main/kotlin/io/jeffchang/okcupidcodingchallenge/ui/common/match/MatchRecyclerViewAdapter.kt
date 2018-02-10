@@ -10,17 +10,18 @@ import io.jeffchang.okcupidcodingchallenge.data.model.Match
  * Created by jeffreychang on 2/9/18.
  */
 
-class MatchRecyclerViewAdapter constructor(private val context: Context,
-                                           private val matches: List<Match>?)
+class MatchRecyclerViewAdapter (private val context: Context,
+                                private val matches: List<Match>)
     : RecyclerView.Adapter<MatchRecyclerViewAdapter.MatchViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MatchViewHolder =
         MatchViewHolder(MatchCardView(context))
 
-    override fun getItemCount(): Int =  5 // matches!!.size
+    override fun getItemCount(): Int = matches.size
 
     override fun onBindViewHolder(holder: MatchViewHolder?, position: Int) {
-
+        val matchViewHolder = (holder?.itemView as MatchCardView)
+        matchViewHolder.updateUI(matches[position])
     }
 
     class MatchViewHolder(view: View): RecyclerView.ViewHolder(view)

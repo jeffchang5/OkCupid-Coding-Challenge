@@ -10,6 +10,7 @@
         android:id="@+id/match_card_profile_image_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:scaleType="centerCrop"
         android:contentDescription="@string/match_card_profile_image_description"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/match_card_divider"
@@ -56,7 +57,7 @@
             tools:text="28 · Brooklyn, NY" />
 
         <TextView
-            android:id="@+id/match_card_match_percentage__textview"
+            android:id="@+id/match_card_match_percentage_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"

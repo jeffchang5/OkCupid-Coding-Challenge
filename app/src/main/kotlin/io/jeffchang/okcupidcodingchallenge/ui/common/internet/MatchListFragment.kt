@@ -1,42 +1,68 @@
 package io.jeffchang.okcupidcodingchallenge.ui.common.internet
 
 import android.os.Bundle
+import android.os.Parcelable
+import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams
 import android.widget.FrameLayout
 import dagger.android.support.DaggerFragment
+import io.jeffchang.okcupidcodingchallenge.ui.common.match.MatchSpaceDecoration
+import io.jeffchang.okcupidcodingchallenge.ui.specialblend.view.SpecialBlendFragment
 import io.jeffchang.okcupidcodingchallenge.util.ResourceUtil
 
 /**
  * This class is meant to be extended in providing logic for common
  * actions when retrieving data from the network.
  */
-abstract class InternetFragment : DaggerFragment() {
+abstract class MatchListFragment : DaggerFragment() {
 
-    private lateinit var parent: FrameLayout
+    private var layoutManagerState: Parcelable? = null
 
-    private var childView: View? = null
+    private val parent: FrameLayout by lazy {
+        FrameLayout(context)
+    }
 
-    abstract var layoutResourceID: Int
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        retainInstance = true
+    open val recyclerView: RecyclerView by lazy {
+        RecyclerView(context)
     }
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        parent = FrameLayout(context)
         parent.layoutParams = LayoutParams(
                 LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
-        childView = inflater.inflate(layoutResourceID, container, false)
-        parent.addView(childView)
+        recyclerView.layoutParams =
+                LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
+        recyclerView.layoutManager = GridLayoutManager(context, SpecialBlendFragment.NUMBER_OF_COLUMNS)
+        recyclerView.addItemDecoration(MatchSpaceDecoration(context!!,8))
+        parent.addView(recyclerView)
         return parent
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        recyclerView.layoutManager?.let {
+            outState.putParcelable(ARG_RECYCLER_VIEW_STATE, it.onSaveInstanceState())
+        }
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        savedInstanceState?.let {
+            layoutManagerState = it.getParcelable(ARG_RECYCLER_VIEW_STATE)
+        }
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        recyclerView.layoutManager?.onRestoreInstanceState(layoutManagerState)
+    }
+    
     /**
      * Loads a screen when there is no internet.
      *
@@ -61,6 +87,19 @@ abstract class InternetFragment : DaggerFragment() {
         parent.addView(noInternetView)
     }
 
+    fun loadUnknownReason(callback: (() -> Unit)?, height: Int?) {
+        parent.removeAllViews()
+        val unknownReasonView = UnknownReasonView(context!!)
+        if (height != null)
+            unknownReasonView.layoutParams = LayoutParams(LayoutParams.MATCH_PARENT,
+                    ResourceUtil.convertDpToPixel(context!!, height))
+        unknownReasonView.tryAgainCallback = {
+            loadCircularProgressBar("Trying again...")
+            callback?.invoke()
+        }
+        parent.addView(unknownReasonView)
+    }
+
     /**
      * Loads a view with a progress bar
      *
@@ -78,6 +117,10 @@ abstract class InternetFragment : DaggerFragment() {
      */
     fun loadMainContent() {
         parent.removeAllViews()
-        parent.addView(childView)
+        parent.addView(recyclerView)
+    }
+
+    companion object {
+        private const val ARG_RECYCLER_VIEW_STATE = "ARG_RECYCLER_VIEW_STATE"
     }
 }

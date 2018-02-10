@@ -5,6 +5,7 @@ import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
 import io.fabric.sdk.android.Fabric
 import io.jeffchang.okcupidcodingchallenge.dagger.components.DaggerAppComponent
+import io.jeffchang.okcupidcodingchallenge.dagger.modules.NetworkModule
 import timber.log.Timber
 
 /**
@@ -16,6 +17,7 @@ class OkCupidDemoApplication: DaggerApplication() {
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
         val appComponent = DaggerAppComponent.builder()
                 .application(this)
+                .networkModule(NetworkModule("http://okcupid.com/"))
                 .build()
         appComponent.inject(this)
         return appComponent
@@ -26,9 +28,7 @@ class OkCupidDemoApplication: DaggerApplication() {
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         } else {
-
-            // Crash handling within the production application.
-            Fabric.with(this, Crashlytics())
+            Fabric.with(this, Crashlytics()) // Crash handling within the production flavor
         }
     }
 }

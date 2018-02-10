@@ -2,9 +2,6 @@
     <string name="app_name">OKCupidCodingChallenge</string>
     <string name="search_title">Search</string>
 
-    <!--Common-->
-    <string name="match_percent">Match %</string>
-
     <!--Special Blend-->
     <string name="special_blend">Special Blend</string>
 
@@ -13,7 +10,13 @@
     <string name="device_offline">Device Offline</string>
     <string name="try_again">Try Again</string>
 
-    <!--Match Card-->
-    <string name="match_card_profile_image_description">match_card_profile_image_description</string>
+    <!--Unknown reason view-->
+    <string name="unknown_error">Unknown Error</string>
+
+    <!--Match card-->
+    <string name="match_card_profile_age_location">%d · %s, %s</string>
+    <string name="match_card_profile_image_description">Profile Image</string>
+    <string name="match_percent">%d%% Match</string>
+
 
 </resources>

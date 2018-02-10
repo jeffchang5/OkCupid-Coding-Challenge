@@ -9,7 +9,7 @@ import io.jeffchang.okcupidcodingchallenge.R
 import io.jeffchang.okcupidcodingchallenge.ui.specialblend.view.MatchFragment
 import io.jeffchang.okcupidcodingchallenge.ui.specialblend.view.SpecialBlendFragment
 import kotlinx.android.synthetic.main.activity_main.*
-import timber.log.Timber
+import android.widget.LinearLayout
 
 class MainActivity : DaggerAppCompatActivity() {
 
@@ -33,6 +33,15 @@ class MainActivity : DaggerAppCompatActivity() {
         activity_main_viewpager.adapter = SpecialBlendFragmentPagerAdapter(supportFragmentManager)
     }
 
+    fun disableViewPager(disable: Boolean) {
+        activity_main_viewpager.isDisabled = disable
+
+        val tabStrip = activity_main_tab_layout.getChildAt(0) as LinearLayout
+        tabStrip.isEnabled = !disable
+        for (i in 0 until tabStrip.childCount) {
+            tabStrip.getChildAt(i).isClickable = !disable
+        }
+    }
     class SpecialBlendFragmentPagerAdapter(fragmentManager: FragmentManager)
         : FragmentPagerAdapter(fragmentManager) {
 
@@ -42,7 +51,6 @@ class MainActivity : DaggerAppCompatActivity() {
         }
 
         override fun getItem(position: Int): Fragment {
-            Timber.e(position.toString())
             return when (position) {
                 0 -> SpecialBlendFragment.newInstance()
                 1 -> MatchFragment.newInstance()

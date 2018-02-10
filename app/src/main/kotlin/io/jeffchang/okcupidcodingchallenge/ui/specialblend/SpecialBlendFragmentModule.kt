@@ -3,12 +3,13 @@ package io.jeffchang.okcupidcodingchallenge.ui.specialblend
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
+import io.jeffchang.okcupidcodingchallenge.data.remote.MatchService
 import io.jeffchang.okcupidcodingchallenge.ui.specialblend.interactor.SpecialBlendInteractor
 import io.jeffchang.okcupidcodingchallenge.ui.specialblend.interactor.SpecialBlendInteractorImpl
-import io.jeffchang.okcupidcodingchallenge.ui.specialblend.presenter.MatchPresenter
-import io.jeffchang.okcupidcodingchallenge.ui.specialblend.presenter.MatchPresenterImpl
-import io.jeffchang.okcupidcodingchallenge.ui.specialblend.view.MatchFragment
-import io.jeffchang.okcupidcodingchallenge.ui.specialblend.view.MatchView
+import io.jeffchang.okcupidcodingchallenge.ui.specialblend.presenter.SpecialBlendPresenter
+import io.jeffchang.okcupidcodingchallenge.ui.specialblend.presenter.SpecialBlendPresenterImpl
+import io.jeffchang.okcupidcodingchallenge.ui.specialblend.view.SpecialBlendFragment
+import io.jeffchang.okcupidcodingchallenge.ui.specialblend.view.SpecialBlendView
 
 /**
  * Created by jeffreychang on 2/8/18.
@@ -18,19 +19,20 @@ import io.jeffchang.okcupidcodingchallenge.ui.specialblend.view.MatchView
 abstract class SpecialBlendFragmentModule {
 
     @Binds
-    abstract fun provideSpecialBlendView(matchFragment: MatchFragment): MatchView
+    abstract fun provideSpecialBlendView(specialBlendFragment: SpecialBlendFragment): SpecialBlendView
 
     @Module
     companion object {
         @Provides
         @JvmStatic
-        fun provideSpecialBlendPresenter(matchView: MatchView,
+        fun provideSpecialBlendPresenter(specialBlendView: SpecialBlendView,
                                          specialBlendInteractor: SpecialBlendInteractor)
-                : MatchPresenter =
-                MatchPresenterImpl(matchView, specialBlendInteractor)
+                : SpecialBlendPresenter =
+                SpecialBlendPresenterImpl(specialBlendView, specialBlendInteractor)
 
         @Provides
         @JvmStatic
-        fun provideSpecialBlendInteractor(): SpecialBlendInteractor = SpecialBlendInteractorImpl()
+        fun provideSpecialBlendInteractor(matchService: MatchService)
+                : SpecialBlendInteractor = SpecialBlendInteractorImpl(matchService)
     }
 }

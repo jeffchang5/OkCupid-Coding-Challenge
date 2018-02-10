@@ -6,7 +6,7 @@ import dagger.Provides
 import io.jeffchang.okcupidcodingchallenge.ui.specialblend.interactor.SpecialBlendInteractor
 import io.jeffchang.okcupidcodingchallenge.ui.specialblend.interactor.SpecialBlendInteractorImpl
 import io.jeffchang.okcupidcodingchallenge.ui.specialblend.presenter.MatchPresenter
-import io.jeffchang.okcupidcodingchallenge.ui.specialblend.presenter.MatchPresenterImpl
+import io.jeffchang.okcupidcodingchallenge.ui.specialblend.presenter.SpecialBlendPresenterImpl
 import io.jeffchang.okcupidcodingchallenge.ui.specialblend.view.MatchFragment
 import io.jeffchang.okcupidcodingchallenge.ui.specialblend.view.MatchView
 
@@ -22,15 +22,16 @@ abstract class MatchFragmentModule {
 
     @Module
     companion object {
-        @Provides
-        @JvmStatic
-        fun provideSpecialBlendPresenter(matchView: MatchView,
-                                         specialBlendInteractor: SpecialBlendInteractor)
-                : MatchPresenter =
-                MatchPresenterImpl(matchView, specialBlendInteractor)
+//        @Provides
+//        @JvmStatic
+//        fun provideSpecialBlendPresenter(matchView: MatchView,
+//                                         specialBlendInteractor: SpecialBlendInteractor)
+//                : MatchPresenter =
+//                SpecialBlendPresenterImpl(matchView, specialBlendInteractor)
 
-        @Provides
-        @JvmStatic
-        fun provideSpecialBlendInteractor(): SpecialBlendInteractor = SpecialBlendInteractorImpl()
+//        @Provides
+//        @JvmStatic
+//        fun provideSpecialBlendInteractor(): SpecialBlendInteractor =
+//                SpecialBlendInteractorImpl()
     }
 }
