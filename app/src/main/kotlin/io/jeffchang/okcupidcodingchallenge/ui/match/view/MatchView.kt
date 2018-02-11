@@ -1,4 +1,4 @@
-package io.jeffchang.okcupidcodingchallenge.ui.specialblend.view
+package io.jeffchang.okcupidcodingchallenge.ui.match.view
 
 /**
  * Created by jeffreychang on 2/8/18.
@@ -6,6 +6,6 @@ package io.jeffchang.okcupidcodingchallenge.ui.specialblend.view
 
 interface MatchView {
 
-//    fun onGetMatches(matchResponse: MatchResponse)
+    fun showMatchList()
 
 }

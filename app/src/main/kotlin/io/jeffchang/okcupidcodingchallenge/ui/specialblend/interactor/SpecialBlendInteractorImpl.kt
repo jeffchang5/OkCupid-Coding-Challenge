@@ -11,6 +11,6 @@ import io.reactivex.Maybe
 class SpecialBlendInteractorImpl constructor(private val matchService: MatchService)
     : SpecialBlendInteractor {
 
-    override fun getMatchesFromAPI(): Maybe<List<Match>>
-            = matchService.getMatch().map { it.data }
+    override fun getMatchesFromAPI(): Maybe<ArrayList<Match>>
+            = matchService.getMatch().map { ArrayList(it.data) }
 }

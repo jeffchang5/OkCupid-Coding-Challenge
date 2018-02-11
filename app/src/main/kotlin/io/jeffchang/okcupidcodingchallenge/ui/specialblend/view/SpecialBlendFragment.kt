@@ -1,25 +1,33 @@
 package io.jeffchang.okcupidcodingchallenge.ui.specialblend.view
 
+import android.content.Context
 import android.os.Bundle
-import android.support.v7.widget.GridLayoutManager
 import android.view.View
-import io.jeffchang.okcupidcodingchallenge.ui.common.internet.MatchListFragment
 import io.jeffchang.okcupidcodingchallenge.data.model.Match
+import io.jeffchang.okcupidcodingchallenge.ui.common.internet.MatchListFragment
+import io.jeffchang.okcupidcodingchallenge.ui.common.match.MatchCardView
 import io.jeffchang.okcupidcodingchallenge.ui.common.match.MatchRecyclerViewAdapter
-import io.jeffchang.okcupidcodingchallenge.ui.common.match.MatchSpaceDecoration
 import io.jeffchang.okcupidcodingchallenge.ui.main.MainActivity
 import io.jeffchang.okcupidcodingchallenge.ui.specialblend.presenter.SpecialBlendPresenter
 import java.net.UnknownHostException
 import javax.inject.Inject
 
-
 /**
  * Created by jeffreychang on 2/8/18.
  */
 
-class SpecialBlendFragment: MatchListFragment(), SpecialBlendView {
+class SpecialBlendFragment
+    : MatchListFragment(),
+        SpecialBlendView,
+        MatchCardView.OnCardClickedListener {
 
     @Inject lateinit var specialBlendPresenter: SpecialBlendPresenter
+
+    private var onCardClickedListener: OnCardClickedListener? = null
+
+    private val matchList: ArrayList<Match> = ArrayList()
+
+    private var matchRecyclerViewAdapter: MatchRecyclerViewAdapter? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -27,10 +35,23 @@ class SpecialBlendFragment: MatchListFragment(), SpecialBlendView {
         specialBlendPresenter.onViewCreated()
     }
 
-    override fun onGetMatchesSuccess(matches: List<Match>) {
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        if (context is OnCardClickedListener)
+            onCardClickedListener = context
+    }
+
+    override fun onCardClicked(match: Match, isLiked: Boolean) {
+        onCardClickedListener?.onFromSpecialBlendFragmentToggleLike(match, isLiked)
+    }
+
+    override fun onGetMatchesSuccess(matches: ArrayList<Match>) {
         (activity as MainActivity).disableViewPager(false)
         loadMainContent()
-        recyclerView.adapter = MatchRecyclerViewAdapter(context!!, matches)
+        this.matchList.addAll(matches)
+        matchRecyclerViewAdapter =
+                MatchRecyclerViewAdapter(context!!, matchList, true, this)
+        recyclerView.adapter = matchRecyclerViewAdapter
     }
 
     override fun onGetMatchesFailure(throwable: Throwable) {
@@ -45,6 +66,12 @@ class SpecialBlendFragment: MatchListFragment(), SpecialBlendView {
         }
     }
 
+    fun removeLikeFromMatchList(match: Match) {
+        val matchIndex = matchList.indexOf(match)
+        matchList[matchIndex].liked = false
+        matchRecyclerViewAdapter?.notifyDataSetChanged()
+    }
+
     companion object {
 
         const val NUMBER_OF_COLUMNS = 2
@@ -53,5 +80,12 @@ class SpecialBlendFragment: MatchListFragment(), SpecialBlendView {
             val fragment = SpecialBlendFragment()
             return fragment
         }
+    }
+
+    interface OnCardClickedListener {
+
+        fun onFromSpecialBlendFragmentToggleLike(match: Match, isLiked: Boolean)
+
+        fun onFromSpecialBlendFragmentRemoveLike(match: Match)
     }
 }
