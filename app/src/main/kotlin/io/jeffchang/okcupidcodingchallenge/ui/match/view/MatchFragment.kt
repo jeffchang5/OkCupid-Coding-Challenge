@@ -21,19 +21,14 @@ class MatchFragment : MatchListFragment(), MatchView, MatchCardView.OnCardClicke
 
     private var onCardClickedListener: OnCardClickedListener? = null
 
-    private var matchSet = TreeSet<Match>()
+    private var matchRecyclerViewAdapter: MatchRecyclerViewAdapter? = null
+
+    private val matchSet by lazy {
+        TreeSet<Match>()
+    }
 
     private val matchList by lazy {
         ArrayList<Match>()
-    }
-
-    private var matchRecyclerViewAdapter: MatchRecyclerViewAdapter? = null
-
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        if (context is OnCardClickedListener) {
-            onCardClickedListener = context
-        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,11 +36,11 @@ class MatchFragment : MatchListFragment(), MatchView, MatchCardView.OnCardClicke
         matchPresenter.onViewCreated()
     }
 
-    override fun showMatchList() {
-        matchRecyclerViewAdapter = MatchRecyclerViewAdapter(context!!, matchList,
-                false, this)
-        recyclerView.adapter = matchRecyclerViewAdapter
-
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        if (context is OnCardClickedListener) {
+            onCardClickedListener = context
+        }
     }
 
     fun addMatchToAdapter(match: Match) {
@@ -62,6 +57,12 @@ class MatchFragment : MatchListFragment(), MatchView, MatchCardView.OnCardClicke
         matchRecyclerViewAdapter?.notifyDataSetChanged()
     }
 
+    override fun showMatchList() {
+        matchRecyclerViewAdapter = MatchRecyclerViewAdapter(context!!, matchList,
+                false, this)
+        recyclerView.adapter = matchRecyclerViewAdapter
+    }
+
     override fun onCardClicked(match: Match, isLiked: Boolean) {
         val matchIndex = matchList.indexOf(match)
         matchSet.remove(match)
@@ -72,10 +73,8 @@ class MatchFragment : MatchListFragment(), MatchView, MatchCardView.OnCardClicke
     }
 
     companion object {
-        fun newInstance(): MatchFragment {
-            val fragment = MatchFragment()
-            return fragment
-        }
+
+        fun newInstance() = MatchFragment()
     }
 
     interface OnCardClickedListener {

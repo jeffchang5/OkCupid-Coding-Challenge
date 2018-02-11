@@ -85,7 +85,5 @@ class SpecialBlendFragment
     interface OnCardClickedListener {
 
         fun onFromSpecialBlendFragmentToggleLike(match: Match, isLiked: Boolean)
-
-        fun onFromSpecialBlendFragmentRemoveLike(match: Match)
     }
 }

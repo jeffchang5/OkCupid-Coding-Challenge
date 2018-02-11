@@ -8,21 +8,19 @@ import io.jeffchang.okcupidcodingchallenge.data.model.Match
 import java.util.TreeSet
 
 /**
- * Created by jeffreychang on 2/9/18.
+ * Binds matches to create cards on a RecyclerView.
+ *
+ * @property[isMatchLiked] Set when matches are persisted.
  */
-
 class MatchRecyclerViewAdapter (private val context: Context,
                                 private val matches: ArrayList<Match>,
                                 private val keepLikeState: Boolean,
                                 private val onCardClickedListener: MatchCardView.OnCardClickedListener?)
     : RecyclerView.Adapter<MatchRecyclerViewAdapter.MatchViewHolder>() {
 
-    private var isMatchLiked: TreeSet<Int>? = null
-
-    init {
-        if (keepLikeState) isMatchLiked = TreeSet()
+    private val isMatchLiked: TreeSet<Int> by lazy {
+        TreeSet<Int>()
     }
-
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MatchViewHolder =
         MatchViewHolder(MatchCardView(context))
 
