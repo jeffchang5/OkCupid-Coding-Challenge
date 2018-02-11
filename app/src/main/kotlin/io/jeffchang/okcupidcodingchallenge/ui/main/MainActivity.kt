@@ -52,16 +52,17 @@ class MainActivity : DaggerAppCompatActivity(),
     override fun onFromSpecialBlendFragmentAddLike(match: Match, isLiked: Boolean) {
         if (isLiked) {
             matchFragmentPagerAdapter.matchFragment.addMatchToAdapter(match)
+        } else {
+            matchFragmentPagerAdapter.matchFragment.removeMatchToAdapter(match)
         }
-        else matchFragmentPagerAdapter.matchFragment.removeMatchToAdapter(match)
     }
 
     override fun onFromSpecialBlendFragmentRemoveLike(match: Match) {
 
     }
 
-    override fun onFromMatchFragmentRemoveLike() {
-
+    override fun onFromMatchFragmentRemoveLike(match: Match) {
+        matchFragmentPagerAdapter.specialBlendFragment.removeLikeFromMatchList(match)
     }
 
     class MatchFragmentPagerAdapter(fragmentManager: FragmentManager)

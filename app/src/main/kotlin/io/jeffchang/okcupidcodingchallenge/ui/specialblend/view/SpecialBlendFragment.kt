@@ -12,7 +12,6 @@ import io.jeffchang.okcupidcodingchallenge.ui.specialblend.presenter.SpecialBlen
 import java.net.UnknownHostException
 import javax.inject.Inject
 
-
 /**
  * Created by jeffreychang on 2/8/18.
  */
@@ -24,7 +23,13 @@ class SpecialBlendFragment
 
     @Inject lateinit var specialBlendPresenter: SpecialBlendPresenter
 
-    var onCardClickedListener: OnCardClickedListener? = null
+    private var onCardClickedListener: OnCardClickedListener? = null
+
+    private val matchList: ArrayList<Match> = ArrayList()
+
+    private val matchRecyclerViewAdapter by lazy {
+        MatchRecyclerViewAdapter(context!!, matchList, true, this)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -45,8 +50,8 @@ class SpecialBlendFragment
     override fun onGetMatchesSuccess(matches: ArrayList<Match>) {
         (activity as MainActivity).disableViewPager(false)
         loadMainContent()
-        recyclerView.adapter = MatchRecyclerViewAdapter(context!!, matches,
-                true, this)
+        this.matchList.addAll(matches)
+        recyclerView.adapter = matchRecyclerViewAdapter
     }
 
     override fun onGetMatchesFailure(throwable: Throwable) {
@@ -59,6 +64,12 @@ class SpecialBlendFragment
                 specialBlendPresenter.onViewCreated()
             }, null)
         }
+    }
+
+    fun removeLikeFromMatchList(match: Match) {
+        val matchIndex = matchList.indexOf(match)
+        matchList[matchIndex].liked = false
+        matchRecyclerViewAdapter.notifyDataSetChanged()
     }
 
     companion object {
