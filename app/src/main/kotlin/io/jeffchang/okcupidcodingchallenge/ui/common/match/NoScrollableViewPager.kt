@@ -7,7 +7,9 @@ import android.support.v4.view.ViewPager
 import android.util.AttributeSet
 
 /**
- * Disable touch events.
+ * Disable touch events
+ *
+ * @property[isDisabled] Boolean that toggles whether or not the ViewPager is disabled or not.
  *
  * [Code copied from StackOverflow](https://stackoverflow.com/a/44572547/5314716)
  */

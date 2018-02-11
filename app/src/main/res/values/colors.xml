@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- App Theme-->
     <color name="colorPrimary">@color/muteBlueGray</color>
     <color name="colorPrimaryDark">@color/muteBlueGrayDark</color>
     <color name="colorAccent">@color/white</color>

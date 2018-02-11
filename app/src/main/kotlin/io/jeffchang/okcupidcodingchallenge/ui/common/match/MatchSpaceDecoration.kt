@@ -11,7 +11,6 @@ import io.jeffchang.okcupidcodingchallenge.util.ResourceUtil
  *
  * [Gist for equal spacing on GridLayoutManager] (https://gist.github.com/yqritc/ccca77dc42f2364777e1)
  */
-
 class MatchSpaceDecoration(val context: Context,
                            private val spaceInDp: Int) : RecyclerView.ItemDecoration() {
 

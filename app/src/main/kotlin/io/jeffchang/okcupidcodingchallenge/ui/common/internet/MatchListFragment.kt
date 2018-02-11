@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams
 import android.widget.FrameLayout
 import dagger.android.support.DaggerFragment
+import io.jeffchang.okcupidcodingchallenge.R
 import io.jeffchang.okcupidcodingchallenge.ui.common.match.MatchSpaceDecoration
 import io.jeffchang.okcupidcodingchallenge.ui.specialblend.view.SpecialBlendFragment
 import io.jeffchang.okcupidcodingchallenge.util.ResourceUtil
@@ -23,7 +24,6 @@ abstract class MatchListFragment : DaggerFragment() {
     private var layoutManagerState: Parcelable? = null
 
     lateinit var parent: FrameLayout
-
 
     lateinit var recyclerView: RecyclerView
 
@@ -75,10 +75,12 @@ abstract class MatchListFragment : DaggerFragment() {
      */
     fun loadNoInternet(callback: (() -> Unit)?, height: Int?) {
         parent.removeAllViews()
-        val noInternetView = NoInternetView(context!!)
+        val noInternetView = ErrorView(context!!)
         if (height != null)
             noInternetView.layoutParams = LayoutParams(LayoutParams.MATCH_PARENT,
                     ResourceUtil.convertDpToPixel(context!!, height))
+        noInternetView.iconDrawable = R.drawable.ic_cloud_off_black_24dp
+        noInternetView.titleText = R.string.device_offline
         noInternetView.tryAgainCallback = {
             loadCircularProgressBar("Trying again...")
             callback?.invoke()
@@ -86,12 +88,25 @@ abstract class MatchListFragment : DaggerFragment() {
         parent.addView(noInternetView)
     }
 
+    /**
+     * Loads a screen when there is an unknown error.
+     *
+     * @param[callback] When the try again text is pressed, it invokes a callback to handle
+     * that event. Used to retry a network call.
+     *
+     * @param[height] When the main content view has a height of wrap content, the other
+     * views will fit that respective height. This can cause the view to appear as if were
+     * shrinking. This parameter can be either null to take on that property or to have a
+     * set height to fall back on.
+     */
     fun loadUnknownReason(callback: (() -> Unit)?, height: Int?) {
         parent.removeAllViews()
-        val unknownReasonView = UnknownReasonView(context!!)
+        val unknownReasonView = ErrorView(context!!)
         if (height != null)
             unknownReasonView.layoutParams = LayoutParams(LayoutParams.MATCH_PARENT,
                     ResourceUtil.convertDpToPixel(context!!, height))
+        unknownReasonView.iconDrawable = R.drawable.ic_error_outline_black_24dp
+        unknownReasonView.titleText = R.string.unknown_error
         unknownReasonView.tryAgainCallback = {
             loadCircularProgressBar("Trying again...")
             callback?.invoke()
@@ -112,7 +127,7 @@ abstract class MatchListFragment : DaggerFragment() {
     }
 
     /**
-     * Loads a view with the contents inflated by [layoutResourceID]
+     * Loads a view with the RecyclerView
      */
     fun loadMainContent() {
         parent.removeAllViews()

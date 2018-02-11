@@ -6,15 +6,18 @@ import android.support.v7.widget.CardView
 import android.view.View
 import com.squareup.picasso.Picasso
 import io.jeffchang.okcupidcodingchallenge.R
-import io.jeffchang.okcupidcodingchallenge.R.id.match_card_text_portion_layout
 import io.jeffchang.okcupidcodingchallenge.data.model.Match
 import kotlinx.android.synthetic.main.view_match_card.view.*
-import timber.log.Timber
 
 /**
- * Created by jeffreychang on 2/9/18.
+ * Binds a match entity as a card
+ *
+ * @property[onCardClickedListener] Set when to inform host fragment or activity of when a card
+ * is clicked.
+ *
+ * @property[keepLikeState] Set true if the View needs to be able to save a like state and
+ * send it to the OnCardClickedListener.
  */
-
 class MatchCardView(context: Context): CardView(context) {
 
     var onCardClickedListener: OnCardClickedListener? = null
@@ -37,20 +40,26 @@ class MatchCardView(context: Context): CardView(context) {
                 match.location?.stateCode!!)
         match_card_match_percentage_textview.text = formatServerPercent(match.match)
         keepLikeState?.let { bool ->
-            if (bool) addLikeBackground(match.liked)
+            if (bool) toggleLikeBackground(match.liked)
             rootView.setOnClickListener({
                 match.liked = !match.liked
-                if (bool) addLikeBackground(match.liked)
+                if (bool) toggleLikeBackground(match.liked)
                 onCardClickedListener?.onCardClicked(match, match.liked) })
             }
     }
 
+    /**
+     * Parses the number stored on the backend into user presentation.
+     */
     private fun formatServerPercent(percent: Int): String {
         return String.format(resources.getString(R.string.match_percent),
                 Math.round(percent * .01))
     }
 
-    private fun addLikeBackground(isLiked: Boolean) {
+    /**
+     * Toggles the color of the background when the card is liked.
+     */
+    private fun toggleLikeBackground(isLiked: Boolean) {
         if (isLiked) {
             match_card_text_portion_layout.background =
                     ContextCompat.getDrawable(context, R.color.highlightYellow)
