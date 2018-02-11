@@ -22,19 +22,19 @@ abstract class MatchListFragment : DaggerFragment() {
 
     private var layoutManagerState: Parcelable? = null
 
-    private val parent: FrameLayout by lazy {
-        FrameLayout(context)
-    }
+    lateinit var parent: FrameLayout
 
-    open val recyclerView: RecyclerView by lazy {
-        RecyclerView(context)
-    }
+
+    lateinit var recyclerView: RecyclerView
+
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+        parent = FrameLayout(context)
         parent.layoutParams = LayoutParams(
                 LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
+        recyclerView = RecyclerView(context)
         recyclerView.layoutParams =
                 LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
         recyclerView.layoutManager = GridLayoutManager(context, SpecialBlendFragment.NUMBER_OF_COLUMNS)

@@ -27,9 +27,7 @@ class SpecialBlendFragment
 
     private val matchList: ArrayList<Match> = ArrayList()
 
-    private val matchRecyclerViewAdapter by lazy {
-        MatchRecyclerViewAdapter(context!!, matchList, true, this)
-    }
+    private var matchRecyclerViewAdapter: MatchRecyclerViewAdapter? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -44,13 +42,15 @@ class SpecialBlendFragment
     }
 
     override fun onCardClicked(match: Match, isLiked: Boolean) {
-        onCardClickedListener?.onFromSpecialBlendFragmentAddLike(match, isLiked)
+        onCardClickedListener?.onFromSpecialBlendFragmentToggleLike(match, isLiked)
     }
 
     override fun onGetMatchesSuccess(matches: ArrayList<Match>) {
         (activity as MainActivity).disableViewPager(false)
         loadMainContent()
         this.matchList.addAll(matches)
+        matchRecyclerViewAdapter =
+                MatchRecyclerViewAdapter(context!!, matchList, true, this)
         recyclerView.adapter = matchRecyclerViewAdapter
     }
 
@@ -69,7 +69,7 @@ class SpecialBlendFragment
     fun removeLikeFromMatchList(match: Match) {
         val matchIndex = matchList.indexOf(match)
         matchList[matchIndex].liked = false
-        matchRecyclerViewAdapter.notifyDataSetChanged()
+        matchRecyclerViewAdapter?.notifyDataSetChanged()
     }
 
     companion object {
@@ -84,7 +84,7 @@ class SpecialBlendFragment
 
     interface OnCardClickedListener {
 
-        fun onFromSpecialBlendFragmentAddLike(match: Match, isLiked: Boolean)
+        fun onFromSpecialBlendFragmentToggleLike(match: Match, isLiked: Boolean)
 
         fun onFromSpecialBlendFragmentRemoveLike(match: Match)
     }

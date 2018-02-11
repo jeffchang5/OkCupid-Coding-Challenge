@@ -1,5 +1,7 @@
 package io.jeffchang.okcupidcodingchallenge
 
+import android.util.Log
+import android.widget.Toast
 import com.crashlytics.android.Crashlytics
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
