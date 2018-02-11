@@ -25,8 +25,7 @@ abstract class MatchFragmentModule {
         @Provides
         @JvmStatic
         fun provideSpecialBlendPresenter(matchView: MatchView,
-                                         matchInteractor: MatchInteractor)
-                : MatchPresenter =
+                                         matchInteractor: MatchInteractor): MatchPresenter =
                 MatchPresenterImpl(matchView, matchInteractor)
 
         @Provides

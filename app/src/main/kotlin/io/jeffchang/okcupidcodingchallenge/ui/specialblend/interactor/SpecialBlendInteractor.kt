@@ -1,6 +1,7 @@
 package io.jeffchang.okcupidcodingchallenge.ui.specialblend.interactor
 
 import io.jeffchang.okcupidcodingchallenge.data.model.Match
+import io.reactivex.Flowable
 import io.reactivex.Maybe
 
 /**
@@ -9,6 +10,9 @@ import io.reactivex.Maybe
 
 interface SpecialBlendInteractor {
 
-    fun getMatchesFromAPI(): Maybe<ArrayList<Match>>
+    fun getMatches(): Flowable<ArrayList<Match>>
 
+    fun getMatchesFromDb(): Maybe<List<Match>>
+
+    fun getMatchesFromAPI(): Maybe<List<Match>>
 }

@@ -9,7 +9,7 @@ import com.squareup.moshi.Json
  * Model that represents a match for an user.
  */
 
-@Entity(tableName = "match")
+@Entity(tableName = "Match")
 data class Match(
         @PrimaryKey
         @Json(name = "userid") var userid: String,

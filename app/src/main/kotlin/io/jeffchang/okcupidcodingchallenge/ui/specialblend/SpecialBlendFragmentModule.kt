@@ -3,6 +3,8 @@ package io.jeffchang.okcupidcodingchallenge.ui.specialblend
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
+import io.jeffchang.okcupidcodingchallenge.data.local.MatchDatabase
+import io.jeffchang.okcupidcodingchallenge.data.local.dao.MatchDao
 import io.jeffchang.okcupidcodingchallenge.data.remote.MatchService
 import io.jeffchang.okcupidcodingchallenge.ui.specialblend.interactor.SpecialBlendInteractor
 import io.jeffchang.okcupidcodingchallenge.ui.specialblend.interactor.SpecialBlendInteractorImpl
@@ -32,7 +34,8 @@ abstract class SpecialBlendFragmentModule {
 
         @Provides
         @JvmStatic
-        fun provideSpecialBlendInteractor(matchService: MatchService)
-                : SpecialBlendInteractor = SpecialBlendInteractorImpl(matchService)
+        fun provideSpecialBlendInteractor(matchService: MatchService,
+                                          matchDao: MatchDao)
+                : SpecialBlendInteractor = SpecialBlendInteractorImpl(matchService, matchDao)
     }
 }

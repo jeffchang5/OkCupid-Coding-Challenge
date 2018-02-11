@@ -16,8 +16,7 @@ import javax.inject.Inject
  * Created by jeffreychang on 2/8/18.
  */
 
-class SpecialBlendFragment
-    : MatchListFragment(),
+class SpecialBlendFragment: MatchListFragment(),
         SpecialBlendView,
         MatchCardView.OnCardClickedListener {
 
@@ -32,6 +31,7 @@ class SpecialBlendFragment
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         loadCircularProgressBar("Loading Your Matches")
+        loadNoInternet(null, null)
         specialBlendPresenter.onViewCreated()
     }
 
@@ -47,11 +47,11 @@ class SpecialBlendFragment
 
     override fun onGetMatchesSuccess(matches: ArrayList<Match>) {
         (activity as MainActivity).disableViewPager(false)
-        loadMainContent()
         this.matchList.addAll(matches)
         matchRecyclerViewAdapter =
                 MatchRecyclerViewAdapter(context!!, matchList, true, this)
         recyclerView.adapter = matchRecyclerViewAdapter
+        loadMainContent()
     }
 
     override fun onGetMatchesFailure(throwable: Throwable) {

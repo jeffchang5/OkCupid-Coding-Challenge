@@ -1,16 +1,21 @@
 package io.jeffchang.okcupidcodingchallenge.ui.specialblend.interactor
 
+import io.jeffchang.okcupidcodingchallenge.data.local.dao.MatchDao
 import io.jeffchang.okcupidcodingchallenge.data.model.Match
 import io.jeffchang.okcupidcodingchallenge.data.remote.MatchService
+import io.reactivex.Flowable
 import io.reactivex.Maybe
 
-/**
- * Created by jeffreychang on 2/8/18.
- */
-
-class SpecialBlendInteractorImpl constructor(private val matchService: MatchService)
+class SpecialBlendInteractorImpl constructor(private val matchService: MatchService,
+                                             private val matchDao: MatchDao)
     : SpecialBlendInteractor {
+    override fun getMatches(): Flowable<ArrayList<Match>> =
+            Maybe.concatArray(getMatchesFromDb(), getMatchesFromAPI())
+                    .map { ArrayList(it) }
 
-    override fun getMatchesFromAPI(): Maybe<ArrayList<Match>>
-            = matchService.getMatch().map { ArrayList(it.data) }
+    override fun getMatchesFromDb(): Maybe<List<Match>> = matchDao.getMatches()
+
+
+    override fun getMatchesFromAPI(): Maybe<List<Match>>
+            = matchService.getMatch().map { it.data }
 }

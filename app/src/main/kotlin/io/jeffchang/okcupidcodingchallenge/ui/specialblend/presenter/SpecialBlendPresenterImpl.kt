@@ -7,16 +7,15 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 /**
- * Created by jeffreychang on 2/8/18.
+ * Implementation of special blend presenter.
  */
-
 class SpecialBlendPresenterImpl @Inject constructor(
         private val specialBlendView: SpecialBlendView,
         private val specialBlendInteractor: SpecialBlendInteractor): SpecialBlendPresenter {
 
     override fun onViewCreated() {
         specialBlendInteractor
-                .getMatchesFromAPI()
+                .getMatches()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
@@ -27,6 +26,6 @@ class SpecialBlendPresenterImpl @Inject constructor(
     }
 
     override fun onCardClicked() {
-    }
 
+    }
 }
