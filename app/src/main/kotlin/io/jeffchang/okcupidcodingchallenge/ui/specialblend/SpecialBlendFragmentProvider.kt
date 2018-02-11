@@ -5,9 +5,8 @@ import dagger.android.ContributesAndroidInjector
 import io.jeffchang.okcupidcodingchallenge.ui.specialblend.view.SpecialBlendFragment
 
 /**
- * Created by jeffreychang on 2/8/18.
+ * Injects dependencies into special blend fragment.
  */
-
 @Module
 abstract class SpecialBlendFragmentProvider {
 

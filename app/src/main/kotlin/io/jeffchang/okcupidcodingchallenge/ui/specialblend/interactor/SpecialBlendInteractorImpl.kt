@@ -6,6 +6,9 @@ import io.jeffchang.okcupidcodingchallenge.data.remote.MatchService
 import io.reactivex.Flowable
 import io.reactivex.Maybe
 
+/**
+ * Implementation of special blend interactor.
+ */
 class SpecialBlendInteractorImpl constructor(private val matchService: MatchService,
                                              private val matchDao: MatchDao)
     : SpecialBlendInteractor {

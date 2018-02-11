@@ -5,9 +5,8 @@ import io.reactivex.Flowable
 import io.reactivex.Maybe
 
 /**
- * Created by jeffreychang on 2/8/18.
+ * Interactor for special blend.
  */
-
 interface SpecialBlendInteractor {
 
     fun getMatches(): Flowable<ArrayList<Match>>

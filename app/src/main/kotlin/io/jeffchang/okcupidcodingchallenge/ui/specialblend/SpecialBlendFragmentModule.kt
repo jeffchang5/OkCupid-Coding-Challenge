@@ -14,9 +14,8 @@ import io.jeffchang.okcupidcodingchallenge.ui.specialblend.view.SpecialBlendFrag
 import io.jeffchang.okcupidcodingchallenge.ui.specialblend.view.SpecialBlendView
 
 /**
- * Created by jeffreychang on 2/8/18.
+ * Defines dependencies for special blend module.
  */
-
 @Module
 abstract class SpecialBlendFragmentModule {
 

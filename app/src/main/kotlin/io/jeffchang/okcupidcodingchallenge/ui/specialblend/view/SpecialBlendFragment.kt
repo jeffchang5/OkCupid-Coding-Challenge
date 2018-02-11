@@ -13,7 +13,7 @@ import java.net.UnknownHostException
 import javax.inject.Inject
 
 /**
- * Created by jeffreychang on 2/8/18.
+ * Fragment that manages the special blend model - a list of percentages for likely matches.
  */
 
 class SpecialBlendFragment: MatchListFragment(),
@@ -31,7 +31,6 @@ class SpecialBlendFragment: MatchListFragment(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         loadCircularProgressBar("Loading Your Matches")
-        loadNoInternet(null, null)
         specialBlendPresenter.onViewCreated()
     }
 
@@ -51,7 +50,7 @@ class SpecialBlendFragment: MatchListFragment(),
         matchRecyclerViewAdapter =
                 MatchRecyclerViewAdapter(context!!, matchList, true, this)
         recyclerView.adapter = matchRecyclerViewAdapter
-        loadMainContent()
+        if (matchList.size > 0) loadMainContent()
     }
 
     override fun onGetMatchesFailure(throwable: Throwable) {
