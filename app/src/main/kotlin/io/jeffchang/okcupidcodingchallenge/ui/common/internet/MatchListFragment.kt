@@ -12,7 +12,6 @@ import android.widget.FrameLayout
 import dagger.android.support.DaggerFragment
 import io.jeffchang.okcupidcodingchallenge.R
 import io.jeffchang.okcupidcodingchallenge.ui.common.match.MatchSpaceDecoration
-import io.jeffchang.okcupidcodingchallenge.ui.specialblend.view.SpecialBlendFragment
 import io.jeffchang.okcupidcodingchallenge.util.ResourceUtil
 
 /**
@@ -37,7 +36,9 @@ abstract class MatchListFragment : DaggerFragment() {
         recyclerView = RecyclerView(context)
         recyclerView.layoutParams =
                 LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
-        recyclerView.layoutManager = GridLayoutManager(context, SpecialBlendFragment.NUMBER_OF_COLUMNS)
+
+        val numberOfColumns = if (resources.getBoolean(R.bool.isTablet)) 3 else 2
+        recyclerView.layoutManager = GridLayoutManager(context, numberOfColumns)
         recyclerView.addItemDecoration(MatchSpaceDecoration(context!!,8))
         parent.addView(recyclerView)
         return parent
@@ -135,6 +136,7 @@ abstract class MatchListFragment : DaggerFragment() {
     }
 
     companion object {
+
         private const val ARG_RECYCLER_VIEW_STATE = "ARG_RECYCLER_VIEW_STATE"
     }
 }

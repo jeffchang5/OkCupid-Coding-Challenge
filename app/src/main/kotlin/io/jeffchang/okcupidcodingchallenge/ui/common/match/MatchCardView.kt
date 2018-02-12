@@ -51,10 +51,8 @@ class MatchCardView(context: Context): CardView(context) {
     /**
      * Parses the number stored on the backend into user presentation.
      */
-    private fun formatServerPercent(percent: Int): String {
-        return String.format(resources.getString(R.string.match_percent),
-                Math.round(percent * .01))
-    }
+    private fun formatServerPercent(percent: Int): String =
+            String.format(resources.getString(R.string.match_percent), Math.round(percent * .01))
 
     /**
      * Toggles the color of the background when the card is liked.

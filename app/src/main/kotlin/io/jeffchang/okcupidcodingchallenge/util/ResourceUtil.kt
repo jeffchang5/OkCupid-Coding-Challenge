@@ -10,14 +10,12 @@ import android.util.TypedValue
 
 object ResourceUtil {
 
-    fun convertDpResToPixel(context: Context, @DimenRes res: Int): Int {
-        return context.resources.getDimensionPixelSize(res)
-    }
+    fun convertDpResToPixel(context: Context, @DimenRes res: Int): Int =
+            context.resources.getDimensionPixelSize(res)
 
-    fun convertDpToPixel(context: Context, dim: Int): Int {
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+    fun convertDpToPixel(context: Context, dim: Int): Int =
+        TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
                 (dim.toFloat()),
-                context.resources.displayMetrics)
-                .toInt()
-    }
+                context.resources.displayMetrics).toInt()
 }

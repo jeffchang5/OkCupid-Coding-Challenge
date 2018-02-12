@@ -1,7 +1,7 @@
 package io.jeffchang.okcupidcodingchallenge.data.remote
 
 import io.jeffchang.okcupidcodingchallenge.data.model.MatchResponse
-import io.reactivex.Maybe
+import io.reactivex.Observable
 import retrofit2.http.GET
 
 /**
@@ -10,5 +10,5 @@ import retrofit2.http.GET
 
 interface MatchService {
     @GET("matchSample.json")
-    fun getMatch(): Maybe<MatchResponse>
+    fun getMatch(): Observable<MatchResponse>
 }

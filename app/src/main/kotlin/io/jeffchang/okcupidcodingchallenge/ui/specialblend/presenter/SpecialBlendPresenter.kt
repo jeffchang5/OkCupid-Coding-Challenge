@@ -1,13 +1,16 @@
 package io.jeffchang.okcupidcodingchallenge.ui.specialblend.presenter
 
+import io.jeffchang.okcupidcodingchallenge.data.model.Match
+
 /**
- * Created by jeffreychang on 2/8/18.
+ * Presenter for special blend.
  */
 
 interface SpecialBlendPresenter {
 
     fun onViewCreated()
 
-    fun onCardClicked()
+    fun onCardClicked(isLiked: Boolean, match: Match)
 
+    fun onGetMatchesFromAPI(matches: ArrayList<Match>)
 }
