@@ -1,8 +1,6 @@
 package io.jeffchang.okcupidcodingchallenge.data.local.dao
 
-import android.arch.persistence.room.Dao
-import android.arch.persistence.room.Query
-import android.arch.persistence.room.Transaction
+import android.arch.persistence.room.*
 import io.jeffchang.okcupidcodingchallenge.data.model.Match
 import io.reactivex.Maybe
 
@@ -10,9 +8,14 @@ import io.reactivex.Maybe
  * Database actions for Match.
  */
 @Dao
-abstract class MatchDao {
+interface MatchDao {
 
-    @Transaction
-    @Query("SELECT * FROM Match")
-    abstract fun getMatches(): Maybe<List<Match>>
+    @Query("SELECT * FROM match ORDER BY liked DESC")
+    fun getMatches(): Maybe<List<Match>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(match: Match)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertListOfMatches(matches: List<Match>)
 }

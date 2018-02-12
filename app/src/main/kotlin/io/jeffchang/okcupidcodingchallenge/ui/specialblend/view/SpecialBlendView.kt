@@ -1,6 +1,6 @@
 package io.jeffchang.okcupidcodingchallenge.ui.specialblend.view
 
-import io.jeffchang.okcupidcodingchallenge.data.model.Match
+import io.jeffchang.okcupidcodingchallenge.ui.specialblend.interactor.SpecialBlendInteractorImpl
 
 /**
  * View contract for special blend.
@@ -8,7 +8,7 @@ import io.jeffchang.okcupidcodingchallenge.data.model.Match
 
 interface SpecialBlendView {
 
-    fun onGetMatchesSuccess(matches: ArrayList<Match>)
+    fun onGetMatchesSuccess(matches: SpecialBlendInteractorImpl.CachedMatch)
 
     fun onGetMatchesFailure(throwable: Throwable)
 }

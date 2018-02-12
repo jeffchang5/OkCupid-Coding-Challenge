@@ -92,6 +92,7 @@ dependencies {
 
     // Debugging
     implementation 'com.jakewharton.timber:timber:4.6.0'
+    debugImplementation 'com.amitshekhar.android:debug-db:1.0.2'
 
     // Testing
     testImplementation 'junit:junit:4.12'

@@ -2,12 +2,15 @@ package io.jeffchang.okcupidcodingchallenge.ui.specialblend.view
 
 import android.content.Context
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.view.View
+import io.jeffchang.okcupidcodingchallenge.R
 import io.jeffchang.okcupidcodingchallenge.data.model.Match
 import io.jeffchang.okcupidcodingchallenge.ui.common.internet.MatchListFragment
 import io.jeffchang.okcupidcodingchallenge.ui.common.match.MatchCardView
 import io.jeffchang.okcupidcodingchallenge.ui.common.match.MatchRecyclerViewAdapter
 import io.jeffchang.okcupidcodingchallenge.ui.main.MainActivity
+import io.jeffchang.okcupidcodingchallenge.ui.specialblend.interactor.SpecialBlendInteractorImpl
 import io.jeffchang.okcupidcodingchallenge.ui.specialblend.presenter.SpecialBlendPresenter
 import java.net.UnknownHostException
 import javax.inject.Inject
@@ -28,6 +31,8 @@ class SpecialBlendFragment: MatchListFragment(),
 
     private var matchRecyclerViewAdapter: MatchRecyclerViewAdapter? = null
 
+    val mainActivity by lazy { activity as MainActivity }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         loadCircularProgressBar("Loading Your Matches")
@@ -41,20 +46,29 @@ class SpecialBlendFragment: MatchListFragment(),
     }
 
     override fun onCardClicked(match: Match, isLiked: Boolean) {
+        specialBlendPresenter.onCardClicked(isLiked, match)
         onCardClickedListener?.onFromSpecialBlendFragmentToggleLike(match, isLiked)
     }
 
-    override fun onGetMatchesSuccess(matches: ArrayList<Match>) {
-        (activity as MainActivity).disableViewPager(false)
-        this.matchList.addAll(matches)
+    override fun onGetMatchesSuccess(matches: SpecialBlendInteractorImpl.CachedMatch) {
+        mainActivity.disableViewPager(false)
+        matchList.clear()
+        matchList.addAll(matches.matches)
+        matches.matches.filter { it.liked }
+                .forEach {
+                    onCardClickedListener?.onFromSpecialBlendFragmentToggleLike(it, true)
+                }
+        if (!matches.isCached) specialBlendPresenter.onGetMatchesFromAPI(matches.matches)
         matchRecyclerViewAdapter =
                 MatchRecyclerViewAdapter(context!!, matchList, true, this)
         recyclerView.adapter = matchRecyclerViewAdapter
-        if (matchList.size > 0) loadMainContent()
+        if (matchList.size > 0) {
+            loadMainContent()
+        }
     }
 
     override fun onGetMatchesFailure(throwable: Throwable) {
-        (activity as MainActivity).disableViewPager(true)
+        mainActivity.disableViewPager(true)
         when (throwable) {
             is UnknownHostException -> loadNoInternet({
                 specialBlendPresenter.onViewCreated()
@@ -73,12 +87,7 @@ class SpecialBlendFragment: MatchListFragment(),
 
     companion object {
 
-        const val NUMBER_OF_COLUMNS = 2
-
-        fun newInstance(): SpecialBlendFragment {
-            val fragment = SpecialBlendFragment()
-            return fragment
-        }
+        fun newInstance() = SpecialBlendFragment()
     }
 
     interface OnCardClickedListener {
