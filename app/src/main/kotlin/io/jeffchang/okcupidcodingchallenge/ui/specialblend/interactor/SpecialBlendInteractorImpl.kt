@@ -35,10 +35,7 @@ class SpecialBlendInteractorImpl constructor(private val matchService: MatchServ
                         CachedMatch(false, ArrayList(it)) }
                 else Observable.just(CachedMatch(true, ArrayList(it)))
             }
-//
-//    , getMatchesFromAPI())
-//                    .map { ArrayList(it) }
-
+    
     override fun getMatchesFromDb(): Observable<List<Match>> = matchDao.getMatches().toObservable()
 
 
