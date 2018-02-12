@@ -4,9 +4,9 @@ import com.crashlytics.android.Crashlytics
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
 import io.fabric.sdk.android.Fabric
-import io.jeffchang.okcupidcodingchallenge.dagger.components.DaggerAppComponent
-import io.jeffchang.okcupidcodingchallenge.dagger.modules.NetworkModule
-import io.jeffchang.okcupidcodingchallenge.dagger.modules.RoomModule
+import io.jeffchang.okcupidcodingchallenge.di.components.DaggerAppComponent
+import io.jeffchang.okcupidcodingchallenge.di.modules.NetworkModule
+import io.jeffchang.okcupidcodingchallenge.di.modules.RoomModule
 import timber.log.Timber
 
 /**

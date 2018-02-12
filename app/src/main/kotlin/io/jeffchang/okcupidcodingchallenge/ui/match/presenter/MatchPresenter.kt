@@ -1,13 +1,10 @@
-package io.jeffchang.okcupidcodingchallenge.ui.specialblend.presenter
+package io.jeffchang.okcupidcodingchallenge.ui.match.presenter
 
 /**
- * Created by jeffreychang on 2/8/18.
+ * Presenter for match.
  */
 
 interface MatchPresenter {
 
     fun onViewCreated()
-
-    fun onCardClicked()
-
 }

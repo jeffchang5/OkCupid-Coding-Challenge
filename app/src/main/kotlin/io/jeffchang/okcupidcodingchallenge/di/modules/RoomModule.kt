@@ -1,4 +1,4 @@
-package io.jeffchang.okcupidcodingchallenge.dagger.modules
+package io.jeffchang.okcupidcodingchallenge.di.modules
 
 import android.app.Application
 import android.arch.persistence.room.Room

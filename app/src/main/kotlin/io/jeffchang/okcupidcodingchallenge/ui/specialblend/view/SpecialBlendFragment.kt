@@ -31,12 +31,14 @@ class SpecialBlendFragment: MatchListFragment(),
 
     private var matchRecyclerViewAdapter: MatchRecyclerViewAdapter? = null
 
-    val mainActivity by lazy { activity as MainActivity }
+    private lateinit var mainActivity: MainActivity
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         loadCircularProgressBar("Loading Your Matches")
         specialBlendPresenter.onViewCreated()
+        mainActivity = (activity as MainActivity)
+
     }
 
     override fun onAttach(context: Context?) {
@@ -54,10 +56,10 @@ class SpecialBlendFragment: MatchListFragment(),
         mainActivity.disableViewPager(false)
         matchList.clear()
         matchList.addAll(matches.matches)
-        matches.matches.filter { it.liked }
+        matches.matches
+                .filter { it.liked }
                 .forEach {
-                    onCardClickedListener?.onFromSpecialBlendFragmentToggleLike(it, true)
-                }
+                    onCardClickedListener?.onFromSpecialBlendFragmentToggleLike(it, true) }
         if (!matches.isCached) specialBlendPresenter.onGetMatchesFromAPI(matches.matches)
         matchRecyclerViewAdapter =
                 MatchRecyclerViewAdapter(context!!, matchList, true, this)
@@ -82,6 +84,13 @@ class SpecialBlendFragment: MatchListFragment(),
     fun removeLikeFromMatchList(match: Match) {
         val matchIndex = matchList.indexOf(match)
         matchList[matchIndex].liked = false
+        matchRecyclerViewAdapter?.notifyDataSetChanged()
+    }
+
+    fun clearAllMatches() {
+        matchList.forEach( {
+            it.liked = false
+        })
         matchRecyclerViewAdapter?.notifyDataSetChanged()
     }
 

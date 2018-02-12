@@ -1,10 +1,10 @@
-package io.jeffchang.okcupidcodingchallenge.dagger.modules
+package io.jeffchang.okcupidcodingchallenge.di.modules
 
 import android.app.Application
 import android.content.Context
 import dagger.Module
 import dagger.Provides
-import io.jeffchang.okcupidcodingchallenge.dagger.components.MainActivityComponent
+import io.jeffchang.okcupidcodingchallenge.di.components.MainActivityComponent
 import javax.inject.Singleton
 
 /**

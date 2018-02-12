@@ -31,7 +31,6 @@ class SpecialBlendPresenterImpl @Inject constructor(
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe()
-
     }
 
     override fun onGetMatchesFromAPI(matches: ArrayList<Match>) {

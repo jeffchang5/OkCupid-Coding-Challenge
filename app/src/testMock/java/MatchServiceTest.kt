@@ -1,12 +1,12 @@
 import io.jeffchang.okcupidcodingchallenge.data.model.Match
-import io.jeffchang.okcupiddemo.dagger.modules.data.MockMatchService
+import io.jeffchang.okcupidcodingchallenge.di.modules.data.MockMatchService
 import junit.framework.Assert.assertNotNull
 import junit.framework.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 
 /**
- * Created by jeffreychang on 2/9/18.
+ * Tests Mock Service.
  */
 
 class MatchServiceTest {
@@ -15,19 +15,28 @@ class MatchServiceTest {
 
     private lateinit var matchItem: Match
 
+    /**
+     * Gets a match object from our mock service
+     */
     @Before
     fun initializeMatchService() {
         val matchResponse = MockMatchService()
-                .getMatch().blockingGet()
+                .getMatch().blockingFirst()
         match = matchResponse.data
         matchItem = matchResponse.data[0]
     }
 
+    /**
+     * Tests if match is not empty.
+     */
     @Test
     fun matchServiceResponse_isNotEmpty() {
         assertTrue(match.isNotEmpty())
     }
 
+    /**
+     * Tests if fields in match object are not null.
+     */
     @Test
     fun matchServiceResponse_hasNonNullFields() {
         assertNotNull(matchItem.age)

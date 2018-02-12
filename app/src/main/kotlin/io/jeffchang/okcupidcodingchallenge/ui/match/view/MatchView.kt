@@ -1,9 +1,8 @@
 package io.jeffchang.okcupidcodingchallenge.ui.match.view
 
 /**
- * Created by jeffreychang on 2/8/18.
+ * View contract for Match Fragment.
  */
-
 interface MatchView {
 
     fun showMatchList()

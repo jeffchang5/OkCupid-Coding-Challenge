@@ -5,9 +5,8 @@ import dagger.android.ContributesAndroidInjector
 import io.jeffchang.okcupidcodingchallenge.ui.match.view.MatchFragment
 
 /**
- * Created by jeffreychang on 2/8/18.
+ * Provides Match Fragment with its dependencies.
  */
-
 @Module
 abstract class MatchFragmentProvider {
 

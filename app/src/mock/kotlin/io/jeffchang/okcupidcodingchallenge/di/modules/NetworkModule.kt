@@ -1,9 +1,9 @@
-package io.jeffchang.okcupidcodingchallenge.dagger.modules
+package io.jeffchang.okcupidcodingchallenge.di.modules
 
 import dagger.Module
 import dagger.Provides
 import io.jeffchang.okcupidcodingchallenge.data.remote.MatchService
-import io.jeffchang.okcupiddemo.dagger.modules.data.MockMatchService
+import io.jeffchang.okcupidcodingchallenge.di.modules.data.MockMatchService
 import javax.inject.Singleton
 
 /**

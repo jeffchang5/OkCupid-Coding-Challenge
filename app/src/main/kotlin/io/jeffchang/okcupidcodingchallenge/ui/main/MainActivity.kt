@@ -60,6 +60,11 @@ class MainActivity : DaggerAppCompatActivity(),
         }
     }
 
+
+    fun clearAllMatches() {
+        matchFragmentPagerAdapter.specialBlendFragment.clearAllMatches()
+    }
+
     /**
      * Method called from Special Blend Fragment which toggles when a card is liked or not.
      */
@@ -67,7 +72,7 @@ class MainActivity : DaggerAppCompatActivity(),
         if (isLiked) {
             matchFragmentPagerAdapter.matchFragment.addMatchToAdapter(match)
         } else {
-            matchFragmentPagerAdapter.matchFragment.removeMatchToAdapter(match)
+            matchFragmentPagerAdapter.matchFragment.removeMatchFromAdapter(match)
         }
     }
 

@@ -1,11 +1,9 @@
-package io.jeffchang.okcupiddemo.dagger.modules.data
+package io.jeffchang.okcupidcodingchallenge.di.modules.data
 
 import com.squareup.moshi.Moshi
 import io.jeffchang.okcupidcodingchallenge.data.model.MatchResponse
 import io.jeffchang.okcupidcodingchallenge.data.remote.MatchService
-import io.reactivex.Maybe
 import io.reactivex.Observable
-import io.reactivex.Single
 
 /**
  * Created by jeffreychang on 2/5/18.
@@ -13,10 +11,10 @@ import io.reactivex.Single
 
 class MockMatchService : MatchService {
 
-    override fun getMatch(): Maybe<MatchResponse> {
+    override fun getMatch(): Observable<MatchResponse> {
         val builder = Moshi.Builder().build()
         val response  = builder.adapter<MatchResponse>(MatchResponse::class.java).fromJson(data)
-        return Maybe.just(response)
+        return Observable.just(response)
     }
 
     private val data =
