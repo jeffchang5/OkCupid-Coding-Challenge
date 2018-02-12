@@ -84,6 +84,8 @@ class SpecialBlendFragment: MatchListFragment(),
     fun removeLikeFromMatchList(match: Match) {
         val matchIndex = matchList.indexOf(match)
         matchList[matchIndex].liked = false
+        match.liked = false
+        specialBlendPresenter.onCardClicked(false, match)
         matchRecyclerViewAdapter?.notifyDataSetChanged()
     }
 
