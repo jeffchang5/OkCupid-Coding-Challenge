@@ -10,9 +10,6 @@ import android.util.TypedValue
 
 object ResourceUtil {
 
-    fun convertDpResToPixel(context: Context, @DimenRes res: Int): Int =
-            context.resources.getDimensionPixelSize(res)
-
     fun convertDpToPixel(context: Context, dim: Int): Int =
         TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,

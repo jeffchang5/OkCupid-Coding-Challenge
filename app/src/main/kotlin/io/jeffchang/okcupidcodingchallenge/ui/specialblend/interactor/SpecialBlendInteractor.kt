@@ -1,8 +1,6 @@
 package io.jeffchang.okcupidcodingchallenge.ui.specialblend.interactor
 
 import io.jeffchang.okcupidcodingchallenge.data.model.Match
-import io.reactivex.Flowable
-import io.reactivex.Maybe
 import io.reactivex.Observable
 import io.reactivex.Single
 

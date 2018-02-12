@@ -1,23 +1,16 @@
 package io.jeffchang.okcupidcodingchallenge.ui.match.presenter
 
-import io.jeffchang.okcupidcodingchallenge.ui.match.interactor.MatchInteractor
 import io.jeffchang.okcupidcodingchallenge.ui.match.view.MatchView
-import io.jeffchang.okcupidcodingchallenge.ui.specialblend.presenter.MatchPresenter
 import javax.inject.Inject
 
 /**
- * Created by jeffreychang on 2/8/18.
+ * Implementation of match presenter.
  */
 
-class MatchPresenterImpl @Inject constructor(val matchView: MatchView,
-                                             matchInteractor: MatchInteractor)
+class MatchPresenterImpl @Inject constructor(private val matchView: MatchView)
     : MatchPresenter {
 
     override fun onViewCreated() {
         matchView.showMatchList()
     }
-
-    override fun onCardClicked() {
-    }
-
 }

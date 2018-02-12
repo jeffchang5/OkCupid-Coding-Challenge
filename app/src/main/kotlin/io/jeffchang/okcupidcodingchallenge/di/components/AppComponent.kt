@@ -1,4 +1,4 @@
-package io.jeffchang.okcupidcodingchallenge.dagger.components
+package io.jeffchang.okcupidcodingchallenge.di.components
 
 import android.app.Application
 import dagger.BindsInstance
@@ -7,10 +7,10 @@ import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
 import dagger.android.support.DaggerApplication
 import io.jeffchang.okcupidcodingchallenge.OkCupidDemoApplication
-import io.jeffchang.okcupidcodingchallenge.dagger.modules.ActivityBuilder
-import io.jeffchang.okcupidcodingchallenge.dagger.modules.AppModule
-import io.jeffchang.okcupidcodingchallenge.dagger.modules.NetworkModule
-import io.jeffchang.okcupidcodingchallenge.dagger.modules.RoomModule
+import io.jeffchang.okcupidcodingchallenge.di.modules.ActivityBuilder
+import io.jeffchang.okcupidcodingchallenge.di.modules.AppModule
+import io.jeffchang.okcupidcodingchallenge.di.modules.NetworkModule
+import io.jeffchang.okcupidcodingchallenge.di.modules.RoomModule
 import javax.inject.Singleton
 
 /**

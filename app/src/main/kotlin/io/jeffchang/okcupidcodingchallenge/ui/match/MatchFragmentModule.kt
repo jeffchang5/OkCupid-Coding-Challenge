@@ -3,17 +3,14 @@ package io.jeffchang.okcupidcodingchallenge.ui.match
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
-import io.jeffchang.okcupidcodingchallenge.ui.match.interactor.MatchInteractor
-import io.jeffchang.okcupidcodingchallenge.ui.match.interactor.MatchInteractorImpl
+import io.jeffchang.okcupidcodingchallenge.ui.match.presenter.MatchPresenter
 import io.jeffchang.okcupidcodingchallenge.ui.match.presenter.MatchPresenterImpl
 import io.jeffchang.okcupidcodingchallenge.ui.match.view.MatchFragment
 import io.jeffchang.okcupidcodingchallenge.ui.match.view.MatchView
-import io.jeffchang.okcupidcodingchallenge.ui.specialblend.presenter.MatchPresenter
 
 /**
- * Created by jeffreychang on 2/8/18.
+ * Provides dependency injection for Match Fragment.
  */
-
 @Module
 abstract class MatchFragmentModule {
 
@@ -24,13 +21,8 @@ abstract class MatchFragmentModule {
     companion object {
         @Provides
         @JvmStatic
-        fun provideSpecialBlendPresenter(matchView: MatchView,
-                                         matchInteractor: MatchInteractor): MatchPresenter =
-                MatchPresenterImpl(matchView, matchInteractor)
+        fun provideMatchPresenter(matchView: MatchView): MatchPresenter =
+                MatchPresenterImpl(matchView)
 
-        @Provides
-        @JvmStatic
-        fun provideSpecialBlendInteractor(): MatchInteractor =
-                MatchInteractorImpl()
     }
 }

@@ -1,4 +1,4 @@
-package io.jeffchang.okcupidcodingchallenge.dagger.components
+package io.jeffchang.okcupidcodingchallenge.di.components
 
 import dagger.Subcomponent
 import dagger.android.AndroidInjector

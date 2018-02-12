@@ -5,7 +5,6 @@ import io.jeffchang.okcupidcodingchallenge.data.model.Match
 /**
  * Presenter for special blend.
  */
-
 interface SpecialBlendPresenter {
 
     fun onViewCreated()

@@ -7,14 +7,13 @@ import io.jeffchang.okcupidcodingchallenge.data.model.Match
 import io.jeffchang.okcupidcodingchallenge.ui.common.internet.MatchListFragment
 import io.jeffchang.okcupidcodingchallenge.ui.common.match.MatchCardView
 import io.jeffchang.okcupidcodingchallenge.ui.common.match.MatchRecyclerViewAdapter
-import io.jeffchang.okcupidcodingchallenge.ui.specialblend.presenter.MatchPresenter
+import io.jeffchang.okcupidcodingchallenge.ui.match.presenter.MatchPresenter
 import java.util.TreeSet
 import javax.inject.Inject
 
 /**
- * Created by jeffreychang on 2/8/18.
+ * Match fragment which adds liked matches from MainActivity.
  */
-
 class MatchFragment : MatchListFragment(), MatchView, MatchCardView.OnCardClickedListener {
 
     @Inject lateinit var matchPresenter: MatchPresenter
@@ -43,6 +42,9 @@ class MatchFragment : MatchListFragment(), MatchView, MatchCardView.OnCardClicke
         }
     }
 
+    /**
+     * Adds match to match list.
+     */
     fun addMatchToAdapter(match: Match) {
         matchSet.add(match)
         matchList.clear()
@@ -50,19 +52,28 @@ class MatchFragment : MatchListFragment(), MatchView, MatchCardView.OnCardClicke
         matchRecyclerViewAdapter?.notifyDataSetChanged()
     }
 
-    fun removeMatchToAdapter(match: Match) {
+    /**
+     * Removes match from match list.
+     */
+    fun removeMatchFromAdapter(match: Match) {
         matchSet.remove(match)
         matchList.clear()
         matchList.addAll(matchSet)
         matchRecyclerViewAdapter?.notifyDataSetChanged()
     }
 
+    /**
+     * Called from presenter to show the liked matches
+     */
     override fun showMatchList() {
         matchRecyclerViewAdapter = MatchRecyclerViewAdapter(context!!, matchList,
                 false, this)
         recyclerView.adapter = matchRecyclerViewAdapter
     }
 
+    /**
+     * Updates the special blend fragment when a match is unliked.
+     */
     override fun onCardClicked(match: Match, isLiked: Boolean) {
         val matchIndex = matchList.indexOf(match)
         matchSet.remove(match)
