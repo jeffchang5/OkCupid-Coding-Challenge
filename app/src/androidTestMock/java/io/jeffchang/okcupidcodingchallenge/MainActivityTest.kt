@@ -17,7 +17,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
-
 /**
  * Tests the logic within the MainActivity.
  */

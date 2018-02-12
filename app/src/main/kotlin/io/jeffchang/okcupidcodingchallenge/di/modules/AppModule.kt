@@ -10,7 +10,6 @@ import javax.inject.Singleton
 /**
  * Module that exposes the application context.
  */
-
 @Module(subcomponents = [MainActivityComponent::class])
 class AppModule {
 

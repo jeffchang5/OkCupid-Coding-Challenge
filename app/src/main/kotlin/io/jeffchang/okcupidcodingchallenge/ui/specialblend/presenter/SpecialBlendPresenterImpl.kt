@@ -26,7 +26,7 @@ class SpecialBlendPresenterImpl @Inject constructor(
                 })
     }
 
-    override fun onCardClicked(isLiked: Boolean, match: Match) {
+    override fun onCardStatusChanged(isLiked: Boolean, match: Match) {
         specialBlendInteractor.insertMatchToDb(isLiked, match)!!
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())

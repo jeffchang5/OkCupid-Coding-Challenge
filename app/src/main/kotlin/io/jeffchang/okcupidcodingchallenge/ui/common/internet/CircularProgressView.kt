@@ -9,28 +9,14 @@ import kotlinx.android.synthetic.main.view_circular_progress.view.*
 /**
  * View that displays a progress bar and a message that is the rationale for the progress bar.
  */
-
-class CircularProgressView : RelativeLayout {
+class CircularProgressView(context: Context) : RelativeLayout(context) {
 
     var loadingText: String? = null
         set(text) {
             circular_progress_textview_loading.text = text
         }
 
-    constructor(context: Context): super(context) {
-        init(context)
-    }
-
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        init(context)
-    }
-
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int)
-            : super(context, attrs, defStyleAttr) {
-        init(context)
-    }
-
-    private fun init(context: Context) {
+    init {
         inflate(context, R.layout.view_circular_progress, this)
     }
 }

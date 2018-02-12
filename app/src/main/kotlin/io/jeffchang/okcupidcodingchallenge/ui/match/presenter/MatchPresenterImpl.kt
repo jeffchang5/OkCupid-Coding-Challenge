@@ -6,7 +6,6 @@ import javax.inject.Inject
 /**
  * Implementation of match presenter.
  */
-
 class MatchPresenterImpl @Inject constructor(private val matchView: MatchView)
     : MatchPresenter {
 

@@ -7,7 +7,6 @@ import com.squareup.moshi.Json
  * A series of models relevant to an user's picture
  * and the various ways that is stored for different devices.
  */
-
 data class Photo(
         @Json(name = "base_path") var basePath: String?,
         @Json(name = "ordinal") var ordinal: Int?,
@@ -24,13 +23,6 @@ data class Photo(
 data class OriginalSize(
         @Json(name = "width") var width: Int?,
         @Json(name = "height") var height: Int?
-)
-
-data class CropRect(
-        @Json(name = "height") var height: Int?,
-        @Json(name = "y") var y: Int?,
-        @Json(name = "width") var width: Int?,
-        @Json(name = "x") var x: Int?
 )
 
 data class ThumbPaths(

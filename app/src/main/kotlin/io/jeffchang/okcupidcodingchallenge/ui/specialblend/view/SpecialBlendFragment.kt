@@ -2,9 +2,7 @@ package io.jeffchang.okcupidcodingchallenge.ui.specialblend.view
 
 import android.content.Context
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.view.View
-import io.jeffchang.okcupidcodingchallenge.R
 import io.jeffchang.okcupidcodingchallenge.data.model.Match
 import io.jeffchang.okcupidcodingchallenge.ui.common.internet.MatchListFragment
 import io.jeffchang.okcupidcodingchallenge.ui.common.match.MatchCardView
@@ -18,7 +16,6 @@ import javax.inject.Inject
 /**
  * Fragment that manages the special blend model - a list of percentages for likely matches.
  */
-
 class SpecialBlendFragment: MatchListFragment(),
         SpecialBlendView,
         MatchCardView.OnCardClickedListener {
@@ -31,13 +28,14 @@ class SpecialBlendFragment: MatchListFragment(),
 
     private var matchRecyclerViewAdapter: MatchRecyclerViewAdapter? = null
 
-    private lateinit var mainActivity: MainActivity
+    private val mainActivity by lazy {
+        activity as MainActivity
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         loadCircularProgressBar("Loading Your Matches")
         specialBlendPresenter.onViewCreated()
-        mainActivity = (activity as MainActivity)
 
     }
 
@@ -48,10 +46,16 @@ class SpecialBlendFragment: MatchListFragment(),
     }
 
     override fun onCardClicked(match: Match, isLiked: Boolean) {
-        specialBlendPresenter.onCardClicked(isLiked, match)
+        specialBlendPresenter.onCardStatusChanged(isLiked, match)
         onCardClickedListener?.onFromSpecialBlendFragmentToggleLike(match, isLiked)
     }
 
+    /*
+    Checks Cache -> Internet -> View
+
+    If data is retrieved from the server instead of local storage, insert the matches into the
+     local storage. This way, the liked data isn't overwritten from the server data
+     */
     override fun onGetMatchesSuccess(matches: SpecialBlendInteractorImpl.CachedMatch) {
         mainActivity.disableViewPager(false)
         matchList.clear()
@@ -69,6 +73,9 @@ class SpecialBlendFragment: MatchListFragment(),
         }
     }
 
+    /**
+     * Handles the case if there is a network issue or otherwise.
+     */
     override fun onGetMatchesFailure(throwable: Throwable) {
         mainActivity.disableViewPager(true)
         when (throwable) {
@@ -84,10 +91,15 @@ class SpecialBlendFragment: MatchListFragment(),
     fun removeLikeFromMatchList(match: Match) {
         val matchIndex = matchList.indexOf(match)
         matchList[matchIndex].liked = false
+        match.liked = false
+        specialBlendPresenter.onCardStatusChanged(false, match)
         matchRecyclerViewAdapter?.notifyDataSetChanged()
     }
 
-    fun clearAllMatches() {
+    /**
+     * Resets all matches to be "unliked"
+     */
+    fun clearAllMatchesLikes() {
         matchList.forEach( {
             it.liked = false
         })

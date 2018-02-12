@@ -9,7 +9,7 @@ interface SpecialBlendPresenter {
 
     fun onViewCreated()
 
-    fun onCardClicked(isLiked: Boolean, match: Match)
+    fun onCardStatusChanged(isLiked: Boolean, match: Match)
 
     fun onGetMatchesFromAPI(matches: ArrayList<Match>)
 }
