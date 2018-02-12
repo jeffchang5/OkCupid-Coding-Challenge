@@ -6,9 +6,8 @@ import io.jeffchang.okcupidcodingchallenge.data.local.dao.MatchDao
 import io.jeffchang.okcupidcodingchallenge.data.model.Match
 
 /**
- * Created by jeffreychang on 2/11/18.
+ * Declares daos for the entities represented within the SQLite database.
  */
-
 @Database(entities = [
     Match::class
 ], version = 1, exportSchema = false)

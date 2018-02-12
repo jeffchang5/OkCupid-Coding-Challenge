@@ -13,8 +13,7 @@ import kotlinx.android.synthetic.main.view_no_internet.view.*
  *
  * @property[tryAgainCallback] A callback to load to reattempt the network call.
  */
-
-class ErrorView : RelativeLayout {
+class ErrorView(context: Context) : RelativeLayout(context) {
 
     var iconDrawable: Int = R.drawable.ic_cloud_off_black_24dp
         set(icon) = unknown_reason_imageview_icon.setImageResource(icon)
@@ -29,20 +28,7 @@ class ErrorView : RelativeLayout {
             })
         }
 
-    constructor(context: Context): super(context) {
-        init(context)
-    }
-
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        init(context)
-    }
-
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int)
-            : super(context, attrs, defStyleAttr) {
-        init(context)
-    }
-
-    private fun init(context: Context) {
+    init {
         inflate(context, R.layout.view_no_internet, this)
         val tryAgainSpan = SpannableString(unknown_reason_error_description_textview.text)
         tryAgainSpan.setSpan(UnderlineSpan(), 0 , tryAgainSpan.length, 0)

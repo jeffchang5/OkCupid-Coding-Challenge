@@ -5,7 +5,6 @@ import com.squareup.moshi.Json
 /**
  * Model that represents a user's location
  */
-
 data class Location(
         @Json(name = "country_code") var countryCode: String?,
         @Json(name = "city_name") var cityName: String?,

@@ -9,7 +9,6 @@ import io.jeffchang.okcupidcodingchallenge.ui.specialblend.SpecialBlendFragmentP
 /**
  * Module that exposes the main view components.
  */
-
 @Module
 abstract class ActivityBuilder {
 

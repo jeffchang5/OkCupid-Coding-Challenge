@@ -62,7 +62,7 @@ class MainActivity : DaggerAppCompatActivity(),
 
 
     fun clearAllMatches() {
-        matchFragmentPagerAdapter.specialBlendFragment.clearAllMatches()
+        matchFragmentPagerAdapter.specialBlendFragment.clearAllMatchesLikes()
     }
 
     /**

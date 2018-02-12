@@ -22,21 +22,23 @@ abstract class MatchListFragment : DaggerFragment() {
 
     private var layoutManagerState: Parcelable? = null
 
-    lateinit var parent: FrameLayout
+    private val parent by lazy {
+        FrameLayout(context)
+    }
 
-    lateinit var recyclerView: RecyclerView
-
+    val recyclerView by lazy {
+        RecyclerView(context)
+    }
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        parent = FrameLayout(context)
         parent.layoutParams = LayoutParams(
                 LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
-        recyclerView = RecyclerView(context)
         recyclerView.layoutParams =
                 LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
 
+        // If the device is a tablet, use 3 columns
         val numberOfColumns = if (resources.getBoolean(R.bool.isTablet)) 3 else 2
         recyclerView.layoutManager = GridLayoutManager(context, numberOfColumns)
         recyclerView.addItemDecoration(MatchSpaceDecoration(context!!,8))
