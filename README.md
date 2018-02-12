@@ -22,8 +22,10 @@ This project is an implementation of the specs required by the OKCupid challenge
 * Handles no internet and unknown errors gracefully.
 * Orders liked percentages in descending order.
 
-### Screenshots
+### Getting Started
+There are two flavors in this project. **Mock** loads data from a sample response. **Prod** will load data from the network. Make sure you set the build variant which can be found at the bottom left side of Android Studio by default.
 
+### Screenshots
 <table>
     <tr>
         <td><img style="width: 350px: height:auto; margin: 0 50px" src="/screenshots/horizontal.png"></img></td>
